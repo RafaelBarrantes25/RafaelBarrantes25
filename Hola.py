@@ -40,11 +40,11 @@ print(f"Cuenta dígitos: {cuenta_dígito(1245678456783764783904,7)}")
 
 #Busca el máximo común divisor entre 2 dígitos
 def mcm(num1,num2):
-    '''
+    """
     E: 2 números
     S: el MCM entre ambos
     R: deben ser números
-    '''
+    """
     if type(num1) != int or type(num2) != int:
         return "Error 0"
     elif num1 < 0 or num2 < 0:
@@ -71,11 +71,11 @@ print(f"Máximo común divisor: {mcm(8,4)}")
 
 #Calcula el Fibonacci de un númerp
 def fibonacci(num):
-    '''
+    """
     E: Un número
     S: El Fibonacci de ese número
     R: Tiene que ser un número
-    '''
+    """
     if type(num) != int:
         return "Error 0"
     else:
@@ -115,11 +115,11 @@ print(f"Largo del texto: {largo_texto("Pizza")}")
 
 #Esto invierte un texto
 def invertir_texto(texto):
-    '''
+    """
     E: Un texto
     S: El texto al revés
     R: Tiene que ser un str
-    '''
+    """
     if type(texto) != str:
         return "Error 1"
     else:
@@ -145,11 +145,11 @@ print(f"Invertir texto: {invertir_texto("Pizza")}")
 
 #Esto revisa si un texto es palíndromo
 def palíndromo(texto):
-    '''
+    """
     E: Texto
     S: True si es palíndromo y False si no
     R: Debe ser un texto
-    '''
+    """
     if invertir_texto(texto) == texto:
         return True
     else:
@@ -165,11 +165,11 @@ print(f"Palíndromo: {palíndromo("Pizza")}")
 
 #Esto cuenta cuántas vocales hay en un texto
 def vocales(texto):
-    '''
+    """
     E: Texto
     S: Número de vocales
     R: Tiene que ser un texto
-    '''
+    """
     if type(texto) != str:
         return "Error 1"
     else:
@@ -196,12 +196,12 @@ print(f"Vocales: {vocales('Pizza')}")
 
 #Esto elimina el final a partir de una posición dada
 def elim_final(texto,posición):
-    '''
+    """
     E: Texto y la posición a partir de la cual se va a eliminar
     S: El texto sin el final
     R: El texto debe ser un str, la posición debe ser número,
     no puede ser mayor a la longitud del texto
-    '''
+    """
     if type(texto) != str or type(posición) != int:
         return "Error 1"
     elif largo_texto(texto) < posición-1:
@@ -278,15 +278,18 @@ print(triángulo(4))
 
 
 
+#--------------------------------------------------------------------
+
+
 
 #COMENTARIO
 def rectangulo(base,altura):
-    '''
+    """
     COMENTARIO
     E: ENTRADA
     S: SALIDA
     R: RESTRICCIONES
-    '''
+    """
     if type(base) != int or type(altura) != int:
         return "Error 0"
     elif base < 0 or altura < 0:
@@ -313,6 +316,10 @@ print(rectangulo(5,4))
 
 
 
+#--------------------------------------------------------------------
+
+
+
 #COMENTARIO
 def encontrar_texto(texto1, texto2):
     """
@@ -324,35 +331,37 @@ def encontrar_texto(texto1, texto2):
     if type(texto1) != str or type(texto2) != str:
         return "Error 0"
     else:
-        return encontrar_texto_aux(texto1+" ", texto2)
+        return encontrar_texto_aux(texto1, texto2)
 
 def encontrar_texto_aux(texto1, texto2):
     """
     COMENTARIO
     """
-    if texto2 == "":
-        return True
-    elif texto1 == "":
+
+    if texto1 == "":
         return False
-    elif texto2[0] == texto1[0]:
-        return encontrar_texto_aux(texto1[1:], texto2[1:])
+    elif texto2 == texto1[0:largo_texto(texto2)]:
+        return True
     else:
         return encontrar_texto_aux(texto1[1:], texto2)
 
 
-print(encontrar_texto_aux("Sgregr", "grer"))
+print(f"Encontrar texto: {encontrar_texto_aux("Los chanchos vuelan los martes", "chancho")}")
 
+
+
+#--------------------------------------------------------------------
 
 
 
 #COMENTARIO
 def NOMBRE(VARIABLE):
-    '''
+    """
     COMENTARIO
     E: ENTRADA
     S: SALIDA
     R: RESTRICCIONES
-    '''
+    """
     pass
 
 def NOMBRE_aux(VARIABLE):
