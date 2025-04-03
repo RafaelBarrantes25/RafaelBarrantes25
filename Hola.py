@@ -263,6 +263,10 @@ def triángulo(num):
     """
     if type(num) != int:
         return "Error 0"
+    elif num <= 0:
+        return "Error 1"
+    elif num % 2 == 0:
+        return "Error 2"
     else:
         return triángulo_aux(num)
 
@@ -274,7 +278,7 @@ def triángulo_aux(num, num2=0):
         return ""
     elif num > 0:
         return num2 * " " + num * "* " + "\n" + triángulo_aux(num-1, num2+1)
-print(triángulo(4))
+print(f"Triángulo: \n{triángulo(5)}")
 
 
 
@@ -312,7 +316,7 @@ def rectangulo_aux(base,altura):
         return "* " * base + rectangulo_aux(base,altura)
 
 
-print(rectangulo(5,4))
+print(f"Rectángulo: \n{rectangulo(5,3)}")
 
 
 
