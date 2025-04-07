@@ -69,7 +69,7 @@ print(f"Máximo común divisor: {mcm(8,4)}")
 
 
 
-#Calcula el Fibonacci de un númerp
+#Calcula el Fibonacci de un número
 def fibonacci(num):
     """
     E: Un número
@@ -212,8 +212,10 @@ def elim_final(texto,posición):
 
 def elim_final_aux(texto,posición):
     """
-    Funcion auxiliar
+    Función auxiliar
     """
+    if texto == "":
+        return ""
     pass
 
 
@@ -253,13 +255,12 @@ print(f"Escalar vector: {escalar_vector(2,[1,2,3,4,5])}")
 
 
 
-#COMENTARIO
+#Crea un triángulo con asteriscos
 def triángulo(num):
     """
-    COMENTARIO
-    E: ENTRADA
-    S: SALIDA
-    R: RESTRICCIONES
+    E: Número entero positivo impar, el número de capas
+    S: Triángulo de asteriscos
+    R: Impar, entero positivo
     """
     if type(num) != int:
         return "Error 0"
@@ -272,7 +273,7 @@ def triángulo(num):
 
 def triángulo_aux(num, num2=0):
     """
-    COMENTARIO
+    Función auxiliar
     """
     if num == 0:
         return ""
@@ -286,13 +287,12 @@ print(f"Triángulo: \n{triángulo(5)}")
 
 
 
-#COMENTARIO
+#Crea un rectángulo de asteriscos
 def rectangulo(base,altura):
     """
-    COMENTARIO
-    E: ENTRADA
-    S: SALIDA
-    R: RESTRICCIONES
+    E: Base y altura del rectángulo
+    S: El rectángulo
+    R: Números enteros positivos
     """
     if type(base) != int or type(altura) != int:
         return "Error 0"
@@ -306,7 +306,7 @@ def rectangulo(base,altura):
 
 def rectangulo_aux(base,altura):
     """
-    COMENTARIO
+    Función auxiliar
     """
     if base == 0 or altura == 0:
         return ""
@@ -324,7 +324,7 @@ print(f"Rectángulo: \n{rectangulo(5,3)}")
 
 
 
-#COMENTARIO
+#Revisa si un texto se encuentra dentro de otro más largo
 def encontrar_texto(texto1, texto2):
     """
     COMENTARIO
@@ -334,12 +334,14 @@ def encontrar_texto(texto1, texto2):
     """
     if type(texto1) != str or type(texto2) != str:
         return "Error 0"
+    elif largo_texto(texto1) < largo_texto(texto2):
+        return "Error 1"
     else:
         return encontrar_texto_aux(texto1, texto2)
 
 def encontrar_texto_aux(texto1, texto2):
     """
-    COMENTARIO
+    Función auxiliar
     """
 
     if texto1 == "":
