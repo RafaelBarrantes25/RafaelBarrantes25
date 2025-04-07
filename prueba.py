@@ -18,3 +18,15 @@ def skobodo(texto):
     else:
         return skobodo(texto[1:])
 print(skobodo("sapo azul y verde"))
+
+
+def diferencia(lista_o,lista_n):
+    if lista_o == []:
+        return []
+    elif lista_o[0] == lista_n[0]:
+        return diferencia(lista_o[1:],lista_n)
+    else:
+        return [lista_o[0]] + diferencia(lista_o[1:],lista_n)
+
+
+print(diferencia([1,2,3,4,5],[4]))
