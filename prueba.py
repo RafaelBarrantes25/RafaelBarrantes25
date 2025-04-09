@@ -12,21 +12,11 @@ print(skibidi([1,2,3,4,5],4))
 
 def skobodo(texto):
     if texto == "":
-        return ""
+        return []
     elif texto[0] == "a" or texto[0] == "e" or texto[0] == "i" or texto[0] == "o" or texto[0] == "u":
-        return texto[0]+skobodo(texto[1:])
+        return [texto[0]]+skobodo(texto[1:])
     else:
         return skobodo(texto[1:])
 print(skobodo("sapo azul y verde"))
 
 
-def diferencia(lista_o,lista_n):
-    if lista_o == []:
-        return []
-    elif lista_o[0] == lista_n[0]:
-        return diferencia(lista_o[1:],lista_n)
-    else:
-        return [lista_o[0]] + diferencia(lista_o[1:],lista_n)
-
-
-print(diferencia([1,2,3,4,5],[4]))
