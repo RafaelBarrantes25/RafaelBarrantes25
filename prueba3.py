@@ -4,12 +4,12 @@ def largo(num):
     else:
         return 1+largo(num//10)
 
-def tralalero(num):
+def invertir_num(num):
     if num == 0:
         return 0
     else:
-        return (num%10) * (10**(largo(num)-1))+tralalero(num//10)
+        return (num%10) * (10**(largo(num)-1))+invertir_num(num//10)
 
-print(tralalero(124567))
+print(invertir_num(124567))
 
 
