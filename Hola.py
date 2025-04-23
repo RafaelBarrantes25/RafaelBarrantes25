@@ -39,7 +39,7 @@ print(f"Cuenta dígitos: {cuenta_dígito(1245678456783764783904,7)}")
 
 
 #Busca el máximo común divisor entre 2 dígitos
-def mcm(num1,num2):
+def mcd(num1,num2):
     """
     E: 2 números
     S: el MCM entre ambos
@@ -50,18 +50,18 @@ def mcm(num1,num2):
     elif num1 < 0 or num2 < 0:
         return "Error 1"
     else:
-        return mcm_aux(num1,num2)
+        return mcd_aux(num1,num2)
 
-def mcm_aux(num1,num2):
+def mcd_aux(num1,num2):
     """
     función auxiliar
     """
     if num1 % num2 == 0:
         return num2
     else:
-        return "No hay MCM"
+        return mcd_aux(num2,num1%num2)
 
-print(f"Máximo común divisor: {mcm(8,4)}")
+print(f"Máximo común divisor: {mcd(12,8)}")
 
 
 
