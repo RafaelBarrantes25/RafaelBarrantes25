@@ -3,6 +3,64 @@
 
 #--------------------------------------------------------------------
 
+def natu(num):
+    """
+    Calcula si un número es natural
+    E: Número
+    S: Si es natural o no
+    R: Tiene que ser un número
+    """
+    if type(num) != int and type(num) != float:
+        return "Error 1"
+    else:
+        return natu_aux(num)
+
+def natu_aux(num):
+    """
+    Función auxiliar
+    """
+    if num <= 0:
+        return False
+    elif type(num) == float:
+        return False
+    else:
+        return True
+
+print(f"Natural: {natu(234567)}")
+
+
+
+#--------------------------------------------------------------------
+
+
+
+def cuenta_pares(num):
+    """
+    Revisa errores
+    E: Número entero positivo
+    S: Cuántas veces hay un número par
+    R: Tiene que ser número
+    """
+    if type(num)!= int:
+        return "Error 0"
+    else:
+        return cuenta_pares_aux(num)
+
+def cuenta_pares_aux(num):
+    #Función auxiliar
+    if num == 0:
+        return 0
+    elif num % 2 == 0:
+        return 1 + cuenta_pares_aux(num//10)
+    else:
+        return cuenta_pares_aux(num//10)
+
+
+print(f"Pares: {cuenta_pares(234567)}")
+#--------------------------------------------------------------------
+
+
+
 #Esto cuenta cuántas veces aparece un número en otro
 
 def cuenta_dígito(x,y):
