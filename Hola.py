@@ -274,7 +274,13 @@ def elim_final_aux(texto,posición):
     """
     if texto == "":
         return ""
-    pass
+    elif largo_texto(texto) == posición-1:
+        return ""
+    else:
+        return elim_final(texto[:-largo_texto(texto)-1],posición)
+
+print(f"Eliminar final: {elim_final("holabuenas",7)}")
+
 
 
 
