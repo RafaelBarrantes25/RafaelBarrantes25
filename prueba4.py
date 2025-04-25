@@ -1,2 +1,2 @@
-texto = "amogus"
-print(texto[:-1])
+número = 123
+print(número%10)

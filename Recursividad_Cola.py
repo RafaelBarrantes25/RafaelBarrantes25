@@ -53,17 +53,31 @@ print(f"Máximo común divisor: {mcd(12,8)}")
 #-------------------------------------------------------------------
 
 
-def NOMBRE(VARIABLE):
+def elim_digi(número, dígito):
     """
-    COMENTARIO
-    E: ENTRADA
-    S: SALIDA
-    R: RESTRICCIONES
+    Elimina un dígito de un número más largo
+    E: El número y el dígito, enteros positivos
+    S: El número sin el dígito
+    R: tienen que ser enteros positivos, dígito debe ser más corto
     """
-    pass
+    if type(número) != int or type(dígito) != int:
+        return "Error 0"
+    elif dígito >= 10 or dígito < 0:
+        return "Error 1"
+    elif número < 0:
+        return "Error 2"
+    else:
+        return elim_digi_aux(número,dígito,1,0)
 
-def NOMBRE_aux(VARIABLE):
+def elim_digi_aux(número,dígito,número_nuevo,extra):
     """
-    COMENTARIO
+    función auxiliar
     """
-    pass
+    if número == 0:
+        return extra
+    elif número % 10 == dígito:
+        return elim_digi_aux(número//10,dígito,número_nuevo,extra)
+    else:
+        return elim_digi_aux(número//10,dígito,número_nuevo*10,extra+(número%10)*número_nuevo)
+
+print(elim_digi(12345,3))
