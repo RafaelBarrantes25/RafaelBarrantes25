@@ -1,3 +1,30 @@
+def cuenta_digito(num):
+    """
+    cuenta cuántos dígitos hay en un número
+    E: número
+    S: número de dígitos
+    R: número
+    """
+    if type(num) != int:
+        return "Error 1"
+    elif num == 0:
+        return 0
+    else:
+        return cuenta_digito_aux(num,0)
+
+def cuenta_digito_aux(num,cant):
+    #Función auxiliar
+    if num == 0:
+        return cant
+    else:
+        return cuenta_digito_aux(num//10,cant+1)
+
+print(f"Cuenta dígitos: {cuenta_digito(364773)}")
+
+
+#-------------------------------------------------------------------
+
+
 def factorial(número):
     """
     Calcula el factorial de un número
@@ -81,3 +108,32 @@ def elim_digi_aux(número,dígito,número_nuevo,extra):
         return elim_digi_aux(número//10,dígito,número_nuevo*10,extra+(número%10)*número_nuevo)
 
 print(elim_digi(12345,3))
+
+
+#-------------------------------------------------------------------
+
+
+def inv_num(num):
+    """
+    invierte número entero positivo
+    E: número
+    S: número invertido
+    R: entero positivo número
+    """
+    if type(num) != int:
+        return "Error 0"
+    elif num < 0:
+        return "Error 1"
+    else:
+        return inv_num_aux(num,10**(cuenta_digito(num)-1),0)
+
+def inv_num_aux(num,potencia,result):
+    """
+    función auxiliar
+    """
+    if num == 0:
+        return result
+    else:
+        return inv_num_aux(num//10,potencia//10,result+(num%10)*potencia)
+
+print(f"Invertir número: {inv_num(12345)}")
