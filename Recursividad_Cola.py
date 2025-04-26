@@ -1,3 +1,6 @@
+from prueba3 import invertir_num
+
+
 def cuenta_digito(num):
     """
     cuenta cuántos dígitos hay en un número
@@ -107,7 +110,7 @@ def elim_digi_aux(número,dígito,número_nuevo,extra):
     else:
         return elim_digi_aux(número//10,dígito,número_nuevo*10,extra+(número%10)*número_nuevo)
 
-print(elim_digi(12345,3))
+print(f"Elimina dígito: {elim_digi(12345,3)}")
 
 
 #-------------------------------------------------------------------
@@ -137,3 +140,30 @@ def inv_num_aux(num,potencia,result):
         return inv_num_aux(num//10,potencia//10,result+(num%10)*potencia)
 
 print(f"Invertir número: {inv_num(12345)}")
+
+
+#-------------------------------------------------------------------
+
+
+def número_palíndromo(num):
+    """
+    Revisa si un número es palíndromo
+    E: número
+    S: True o False, dependiendo si es palíndromo o no
+    R: debe ser número entero positivo
+    """
+    if type(num) != int:
+        return "Error 0"
+    elif num < 0:
+        return "Error 1"
+    else:
+        return número_palíndromo_aux(num)
+
+def número_palíndromo_aux(num):
+    #Función auxiliar
+    if num == invertir_num(num):
+        return True
+    else:
+        return False
+
+print(f"Número palíndromo: {número_palíndromo(123454321)}")
