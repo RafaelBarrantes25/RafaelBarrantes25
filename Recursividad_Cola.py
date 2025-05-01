@@ -1,5 +1,3 @@
-from prueba3 import invertir_num
-
 
 def cuenta_digito(num):
     """
@@ -80,7 +78,6 @@ def mcd_aux(num1,num2):
 print(f"Máximo común divisor: {mcd(12,8)}")
 
 
-#-------------------------------------------------------------------
 
 
 def elim_digi(número, dígito):
@@ -113,7 +110,6 @@ def elim_digi_aux(número,dígito,número_nuevo,extra):
 print(f"Elimina dígito: {elim_digi(12345,3)}")
 
 
-#-------------------------------------------------------------------
 
 
 def inv_num(num):
@@ -142,7 +138,6 @@ def inv_num_aux(num,potencia,result):
 print(f"Invertir número: {inv_num(12345)}")
 
 
-#-------------------------------------------------------------------
 
 
 def número_palíndromo(num):
@@ -161,9 +156,198 @@ def número_palíndromo(num):
 
 def número_palíndromo_aux(num):
     #Función auxiliar
-    if num == invertir_num(num):
+    if num == inv_num(num):
         return True
     else:
         return False
 
 print(f"Número palíndromo: {número_palíndromo(123454321)}")
+
+
+def contar_elementos(lista):
+    """
+    Cuenta los elementos de una lista
+    E: una lista
+    S: el número de elementos
+    R: la lista debe ser tipo
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return contar_elementos_aux(lista,0)
+
+def contar_elementos_aux(lista, respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    else:
+        return contar_elementos_aux(lista[1:], respuesta+1)
+
+print(f"Contar elementos: {contar_elementos(["a",1,5,"b"])}")
+
+
+
+
+def juntar_elementos(lista, elemento, respuesta):
+    """
+    Crea una lista con listas con un elemento junto con cada elemento
+    E: una lista y un elemento
+    S: Una lista con listas
+    R: Lista debe ser tipo list
+
+    Es una función auxiliar, por lo que no lleva validaciones
+    """
+
+    if lista == []:
+        return respuesta
+    else:
+        return juntar_elementos(lista[1:], elemento, respuesta+[elemento,lista[0]])
+
+
+
+def dibujar_rectángulo(base,altura):
+    """
+    Dibuja un rectángulo con asteriscos
+    E: la base y altura, como números enteros
+    S: Un string con el rectángulo
+    R: deben ser números enteros positivos
+    """
+    if type(base) != int or type(altura) != int:
+        return "Error 0"
+    else:
+        return dibujar_rectángulo_aux(base,altura,"")
+
+def dibujar_rectángulo_aux(base,altura,rectángulo):
+    #Función auxiliar
+    if altura == 0:
+        return rectángulo
+    else:
+        pass
+
+#print(f"Dibujar rectángulo:\n{dibujar_rectángulo(10,5)}")
+
+
+
+
+def eliminar_final(texto,índice):
+    """
+    Elimina el final de un texto usando recursividad de cola
+    a partir de un índice
+    E: texto y el índice
+    S: el texto sin el final
+    R: texto tipo str, índice tipo int
+    """
+    if type(texto) != str:
+        return "Error 0"
+    elif type(índice) != int:
+        return "Error 1"
+    else:
+        return eliminar_final_aux(texto,índice,"")
+
+
+def eliminar_final_aux(texto, índice, respuesta):
+    #Función auxiliar
+    if texto == "":
+        return respuesta
+    if índice == 0:
+        return respuesta
+    else:
+        return eliminar_final_aux(texto[1:],índice-1,respuesta+texto[0])
+
+
+
+
+def buscar_texto(textoG,textoC):
+    """
+    Busca un texto corto dentro de uno más largo
+    E: Un texto largo y uno corto
+    S: True o False
+    R: textos deben ser tipo string
+    """
+    if type(textoG) != str or type(textoC) != str:
+        return "Error 0"
+    else:
+        return buscar_texto_aux(textoG,textoC)
+
+def buscar_texto_aux(textoG,textoC):
+    #Función auxiliar
+    if textoG == "":
+        return False
+    elif eliminar_final(textoG,len(textoC)) == textoC:
+        return True
+    else:
+        return buscar_texto_aux(textoG[1:],textoC)
+
+
+print(f"Buscar texto: {buscar_texto_aux("Sapo verde to you","verde")}")
+
+
+
+def eliminar_sección(texto,inicio,fin):
+    """
+    Elimina una sección de un texto
+    E: un texto, y números con el rango que se va a eliminar
+    S: El texto con la sección eliminada
+    R: texto debe ser tipo string, inicio y fin deben ser int
+    """
+    if type(texto) != str or type(inicio) != int or type(fin) != int:
+        return "Error 0"
+    elif inicio > fin:
+        return "Error 1"
+    else:
+        return eliminar_sección_aux(texto,inicio,fin,"")
+
+def eliminar_sección_aux(texto,inicio,fin,resultado):
+    #Función auxiliar
+    if fin == 0:
+        return resultado+texto[1:]
+    elif inicio <= 0:
+        return eliminar_sección_aux(texto[1:], inicio, fin-1, resultado)
+    else:
+        return eliminar_sección_aux(texto[1:], inicio-1, fin-1, resultado+texto[0])
+
+
+print(f"Eliminar sección: {eliminar_sección("Hola, cómo está Eduardo",4,14)}")
+
+
+
+def contar_vocales(texto):
+    """
+    Cuenta las vocales de un texto
+    E: texto
+    S: número de vocales
+    R: texto debe ser tipo string
+    """
+    if type(texto) != str:
+        return "Error 0"
+    else:
+        return contar_vocales_aux(texto,["A","E","I","O","U",
+                                         "a","e","i","o","u",
+                                         "Á","É","Í","Ó","Ú",
+                                         "á","é","í","ó","ú",
+                                         "Ü","ü"],0)
+
+
+def comparar(texto,lista):
+    #verifica si un str pertenece a una lista
+    if lista == []:
+        return False
+    elif texto == lista[0]:
+        return True
+    else:
+        return comparar(texto,lista[1:])
+
+def contar_vocales_aux(texto,vocales,respuesta):
+    #función auxiliar
+    if texto == "":
+        return respuesta
+    elif comparar(texto[0],vocales) == True:
+        return contar_vocales_aux(texto[1:],vocales,respuesta+1)
+    else:
+        return contar_vocales_aux(texto[1:],vocales,respuesta)
+
+
+print(f"Contar vocales: {contar_vocales("No le crean nada a ese mae")}")
+
+
+
