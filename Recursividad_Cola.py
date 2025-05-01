@@ -422,6 +422,34 @@ print(f"Extraer pares: {extraer_pares([1,2,"buenas",3,4,5,"a"])}")
 
 
 
+def extraer_impares(lista):
+    """
+    Cuenta los elementos impares de una lista
+    E: lista
+    S: lista de impares
+    R: lista debe ser tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return extraer_impares_aux(lista, [])
+
+def extraer_impares_aux(lista,respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    elif type(lista[0]) != int:
+        return extraer_impares_aux(lista[1:],respuesta)
+    elif lista[0]%2 != 0:
+        return extraer_impares_aux(lista[1:],respuesta+[lista[0]])
+    else:
+        return extraer_impares_aux(lista[1:],respuesta)
+
+
+print(f"Extraer impares: {extraer_impares([1,2,"buenas",3,4,5,"a"])}")
+
+
+
 def invertir_lista(lista):
     """
     Invierte una lista
@@ -478,4 +506,292 @@ def dibujar_triángulo(número):
     S: triángulo de asteriscos
     R: debe ser tipo int positivo
     """
-    pass
+    if type(número) != int:
+        return "Error 0"
+    else:
+        return dibujar_triángulo_aux(número,"",0)
+
+def dibujar_triángulo_aux(número,triángulo,espacios):
+    #Función auxiliar
+    if número == 0:
+        return triángulo
+    else:
+        return dibujar_triángulo_aux(número-1," "*espacios+juntar_asteriscos(número,"")+"\n",espacios+1)
+
+print(f"Triángulo:\n{dibujar_triángulo(5)}")
+
+
+
+
+def contar_apariciones(número,dígito):
+    """
+    Cuenta las apariciones de un dígito en un número
+    E: número y dígito
+    S: número de veces
+    R: int positivo, dígito debe ser solo 1
+    """
+    if type(número) != int:
+        return "Error 0"
+    elif type(dígito) != int or dígito < 0 or dígito > 9:
+        return "Error 1"
+    else:
+        return contar_apariciones_aux(número,dígito,0)
+
+def contar_apariciones_aux(número, dígito, resultado):
+    #Función auxiliar
+    if número == 0:
+        return resultado
+    elif número % 10 == dígito:
+        return contar_apariciones_aux(número//10,dígito,resultado+1)
+    else:
+        return contar_apariciones_aux(número//10,dígito,resultado)
+
+print(f"Contar apariciones: {contar_apariciones(12345613243,4)}")
+
+
+def pertenece(lista,elemento):
+    """
+    Verifica si un elemento pertenece a una lista
+    E: elemento y lista
+    S: true o false
+    R: tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return pertenece_aux(lista,elemento)
+
+def pertenece_aux(lista,elemento):
+    #Función auxiliar
+    if lista == []:
+        return False
+    elif lista[0] == elemento:
+        return True
+    else:
+        return pertenece_aux(lista[1:],elemento)
+
+
+
+
+def suma_conjuntos(lista1,lista2):
+    """
+    Une 2 conjuntos
+    E: dos listas
+    S: una lista
+    R: deben ser tipo list
+    """
+    if type(lista1) != list or type(lista2) != list:
+        return "Error 0"
+    else:
+        return suma_conjuntos_aux(lista1,lista2)
+
+def suma_conjuntos_aux(lista1,lista2):
+    #Función auxiliar
+    if lista2 == []:
+        return lista1
+    elif pertenece(lista1,lista2[0]):
+        return suma_conjuntos_aux(lista1,lista2[1:])
+    else:
+        return suma_conjuntos_aux(lista1+[lista2[0]],lista2[1:])
+
+
+print(f"Suma conjuntos: {suma_conjuntos([1,2,"buenas",3,4,"a"],[2,5,777,345,"Navidad feliz"])}")
+
+
+def separar_pares_impares(lista):
+    """
+    Crea una lista con 2 listas, una de pares y una de impares
+    E: lista
+    S: lista con listas
+    R: tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return [extraer_impares(lista)]+[extraer_pares(lista)]
+
+
+print(f"Separar pares impares: {separar_pares_impares([1,5,3,2,2,6,765,554])}")
+
+
+
+def verificar_elementos(lista):
+    """
+    Verifica que los elementos de una lista sean números
+    E: lista
+    S: True o False
+    R: tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return verificar_elementos_aux(lista)
+
+
+def verificar_elementos_aux(lista):
+    #Función auxiliar
+    if lista == []:
+        return True
+    elif type(lista[0]) == int or type(lista[0]) == float:
+        return verificar_elementos_aux(lista[1:])
+    else:
+        return False
+
+
+
+
+def contar_impares(lista):
+    """
+    Cuenta la cantidad de números impares
+    E: lista
+    S: número de impares
+    R: tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    elif verificar_elementos(lista) == False:
+        return "Error 1"
+    else:
+        return contar_impares_aux(lista,0)
+
+
+def contar_impares_aux(lista, respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    elif lista[0] %2 != 0:
+        return contar_impares_aux(lista[1:],respuesta+1)
+    else:
+        return contar_impares_aux(lista[1:],respuesta)
+
+
+print(f"Contar impares: {contar_impares([1,5,3,2,2,6,765,554])}")
+
+
+def contar_apariciones_txt(texto,caracter):
+    """
+    Cuenta las apariciones de un caracter
+    E: texto y caracter
+    S: número de veces que aparece
+    R: tipo str, caracter len 1
+    """
+    if type(texto) != str or type(caracter) != str:
+        return "Error 0"
+    elif caracter[1:] != "":
+        return "Error 1"
+    else:
+        return contar_apariciones_txt_aux(texto,caracter,0)
+
+def contar_apariciones_txt_aux(texto,caracter, resultado):
+    #Función auxiliar
+    if texto == "":
+        return resultado
+    elif texto[0] == caracter:
+        return contar_apariciones_txt_aux(texto[1:],caracter,resultado+1)
+    else:
+        return contar_apariciones_txt_aux(texto[1:],caracter,resultado)
+
+
+print(f"Contar apariciones texto: {contar_apariciones_txt("Mamá amasa la masa","a")}")
+
+def separa_palabras(texto,caracter):
+    """
+    Separa un texto según un caracter
+    E: texto y caracter
+    S: texto separado
+    R: tipo str, solo un caracter
+    """
+    if type(texto) != str or type(caracter) != str:
+        return "Error 0"
+    elif caracter[1:] != "":
+        return "Error 1"
+    else:
+        return separa_palabras_aux(texto, caracter,[],"")
+
+def separa_palabras_aux(texto,caracter,lista,respuesta):
+    #Función auxiliar
+    if texto == "":
+        return lista
+    elif texto[0] == caracter:
+        return separa_palabras_aux(texto[1:], caracter, lista + [respuesta], "")
+    else:
+        return separa_palabras_aux(texto[1:], caracter, lista, respuesta + texto[0])
+
+print(f"Separa palabras: {separa_palabras("Feliz día a todos","a")}")
+
+
+def eliminar_espacios_cola(texto):
+  """
+  Esta elimina los espacios de un texto usando recursividad de cola.
+  E: Un texto
+  S: Un texto
+  R: Texto tipo str.
+  """
+  if type(texto) != str:
+    return "Error 01"
+  else:
+    return eliminar_espacios_cola_aux(texto, "")
+
+def eliminar_espacios_cola_aux(texto, respuesta):
+  """Función auxiliar de Eliminar_espacios_cola."""
+  if texto == "":
+    return respuesta
+  elif texto[0] == " ":
+    return eliminar_espacios_cola_aux(texto[1:], respuesta)
+  else:
+    return eliminar_espacios_cola_aux(texto[1:], respuesta + texto[0])
+
+
+print(f"Eliminar espacios: {eliminar_espacios_cola("hola hola buenas tardes")}")
+
+
+
+def eliminar_final_cola(texto, indice):
+  """
+  Esta elimina el final de un texto a partir de un
+  indice, usando recursividad de cola.
+  E: Un texto y un número.
+  S: Un texto
+  R: Texto tipo str, indice entero positivo.
+  """
+  if type(texto) != str:
+    return "Error 01"
+  elif type(indice) != int or indice < 0:
+    return "Error 02"
+  else:
+    return eliminar_final_cola_aux(texto, indice, "")
+
+def eliminar_final_cola_aux(texto, indice, respuesta):
+  """Función auxiliar de eliminar_final_cola."""
+  if indice == 0:
+    return respuesta
+  else:
+    return eliminar_final_cola_aux(texto[:-1], indice - 1, texto[:-1])
+
+
+print(f"Eliminar final: {eliminar_final_cola("Hola feliz día", 3)}")
+
+
+
+def permutaciones_lista_cola(listaA, listaB):
+  """
+  Esto da el producto cartesiano de dos listas.
+  E: Dos listas
+  S: Una lista de listas
+  R: Lista tipo list
+  """
+  if type(listaA) != list or type(listaB) != list:
+    raise TypeError('Error 01')
+  else:
+    return permutaciones_lista_cola_aux(listaA, listaB, [])
+
+def permutaciones_lista_cola_aux(listaA, listaB, respuesta):
+  """Función auxiliar de Permutaciones_lista_cola."""
+  if listaA == []:
+    return respuesta
+  else:
+    return permutaciones_lista_cola_aux(listaA[1:], listaB, respuesta + juntar_elementos(listaB, listaA[0], []))
+
+
+print(f"Permutaciones: {permutaciones_lista_cola([1,2,3,4],[4,3,2,1])}")
+
