@@ -23,7 +23,6 @@ def cuenta_digito_aux(num,cant):
 print(f"Cuenta dígitos: {cuenta_digito(364773)}")
 
 
-#-------------------------------------------------------------------
 
 
 def factorial(número):
@@ -50,7 +49,7 @@ def factorial_aux(número, resultado):
 print(f"Factorial: {factorial(5)}")
 
 
-#-------------------------------------------------------------------
+
 
 
 def mcd(num1,num2):
