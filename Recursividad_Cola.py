@@ -204,6 +204,12 @@ def juntar_elementos(lista, elemento, respuesta):
         return juntar_elementos(lista[1:], elemento, respuesta+[elemento,lista[0]])
 
 
+def juntar_asteriscos(número,respuesta):
+    #Función auxiliar, devuelve str con el número de asteriscos
+    if número == 0:
+        return respuesta
+    else:
+        return juntar_asteriscos(número-1,respuesta+"* ")
 
 def dibujar_rectángulo(base,altura):
     """
@@ -222,9 +228,9 @@ def dibujar_rectángulo_aux(base,altura,rectángulo):
     if altura == 0:
         return rectángulo
     else:
-        pass
+        return dibujar_rectángulo_aux(base,altura-1,rectángulo+"\n"+juntar_asteriscos(base,""))
 
-#print(f"Dibujar rectángulo:\n{dibujar_rectángulo(10,5)}")
+print(f"Dibujar rectángulo:{dibujar_rectángulo(10,5)}")
 
 
 
@@ -351,3 +357,125 @@ print(f"Contar vocales: {contar_vocales("No le crean nada a ese mae")}")
 
 
 
+def invertir_texto(texto):
+    """
+    Invierte un texto
+    E: texto
+    S: el texto al revés
+    R: debe ser tipo str
+    """
+    if type(texto) != str:
+        return "Error 0"
+    else:
+        return invertir_texto_aux(texto,"")
+
+def invertir_texto_aux(texto,respuesta):
+    if texto == "":
+        return respuesta
+    else:
+        return invertir_texto_aux(texto[1:],texto[0]+respuesta)
+
+print(f"Invertir texto: {invertir_texto("Buenas tardes")}")
+
+def palíndromo_texto(texto):
+    """
+    Revisa si un texto es palíndromo o no
+    E: texto
+    S: True o False
+    R: debe ser tipo str
+    """
+    if type(texto) != str:
+        return "Error 0"
+    elif texto == invertir_texto(texto):
+        return True
+    else:
+        return False
+
+print(f"Palíndromo texto: {palíndromo_texto("reconocer")}")
+
+
+def extraer_pares(lista):
+    """
+    Cuenta los elementos pares de una lista
+    E: lista
+    S: lista de pares
+    R: lista debe ser tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return extraer_pares_aux(lista, [])
+
+def extraer_pares_aux(lista,respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    elif type(lista[0]) != int:
+        return extraer_pares_aux(lista[1:],respuesta)
+    elif lista[0]%2 == 0:
+        return extraer_pares_aux(lista[1:],respuesta+[lista[0]])
+    else:
+        return extraer_pares_aux(lista[1:],respuesta)
+
+
+print(f"Extraer pares: {extraer_pares([1,2,"buenas",3,4,5,"a"])}")
+
+
+
+def invertir_lista(lista):
+    """
+    Invierte una lista
+    E: lista
+    S: lista invertida
+    R: debe ser tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return invertir_lista_aux(lista,[])
+
+def invertir_lista_aux(lista,respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    else:
+        invertir_lista_aux(lista[1:],[lista[0]]+respuesta)
+
+
+print(f"Invertir lista: {invertir_lista([1,2,"buenas",3,4,"a"])}")
+
+
+
+def escalar_vector(número,lista):
+    """
+    Multiplica un escalar por todos los elementos de la lista
+    E: número y lista
+    S: lista escalada
+    R: debe ser tipo list y el número int o float
+    """
+    if type(lista) != list:
+        return "Error 0"
+    elif type(número) != int and type(número) != float:
+        return "Error 1"
+    else:
+        return escalar_vector_aux(número,lista,[])
+
+def escalar_vector_aux(número, lista, respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    else:
+        return escalar_vector_aux(número,lista[1:],respuesta+[lista[0]*número])
+
+
+print(f"Escalar vector: {escalar_vector(5,[1,2,3,4,5])}")
+
+
+def dibujar_triángulo(número):
+    """
+    Dibuja un triángulo de asteriscos
+    E: número
+    S: triángulo de asteriscos
+    R: debe ser tipo int positivo
+    """
+    pass
