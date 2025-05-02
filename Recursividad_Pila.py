@@ -422,20 +422,3 @@ print(f"Encontrar texto: {encontrar_texto_aux("Los chanchos vuelan los martes", 
 
 #--------------------------------------------------------------------
 
-
-
-#COMENTARIO
-def NOMBRE(VARIABLE):
-    """
-    COMENTARIO
-    E: ENTRADA
-    S: SALIDA
-    R: RESTRICCIONES
-    """
-    pass
-
-def NOMBRE_aux(VARIABLE):
-    """
-    COMENTARIO
-    """
-    pass
