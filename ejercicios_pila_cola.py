@@ -1,4 +1,6 @@
 #Inicio ejercicios de pila
+from Recursividad_Cola import pertenece
+
 
 def factorial(número):
     """
@@ -649,3 +651,157 @@ def contar_elementos_cola_aux(lista, respuesta):
         return respuesta
     else:
         return contar_elementos_cola_aux(lista[1:], respuesta+1)
+
+
+def contar_elementos_impares_cola(lista):
+    """
+    Cuenta la cantidad de números impares
+    E: lista
+    S: número de impares
+    R: tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    elif verificar_todos_numéricos_pila(lista) == False:
+        return "Error 1"
+    else:
+        return contar_elementos_impares_cola_aux(lista,0)
+
+
+def contar_elementos_impares_cola_aux(lista, respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    elif lista[0] %2 != 0:
+        return contar_elementos_impares_cola_aux(lista[1:],respuesta+1)
+    else:
+        return contar_elementos_impares_cola_aux(lista[1:],respuesta)
+
+
+
+def extraer_elementos_pares_cola(lista):
+    """
+    Cuenta los elementos pares de una lista
+    E: lista
+    S: lista de pares
+    R: lista debe ser tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return extraer_elementos_pares_cola_aux(lista, [])
+
+def extraer_elementos_pares_cola_aux(lista,respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    elif type(lista[0]) != int:
+        return extraer_elementos_pares_cola_aux(lista[1:],respuesta)
+    elif lista[0]%2 == 0:
+        return extraer_elementos_pares_cola_aux(lista[1:],respuesta+[lista[0]])
+    else:
+        return extraer_elementos_pares_cola_aux(lista[1:],respuesta)
+
+
+def extraer_elementos_impares_cola(lista):
+    """
+    Cuenta los elementos impares de una lista
+    E: lista
+    S: lista de impares
+    R: lista debe ser tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return extraer_elementos_impares_cola_aux(lista, [])
+
+def extraer_elementos_impares_cola_aux(lista,respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    elif type(lista[0]) != int:
+        return extraer_elementos_impares_cola_aux(lista[1:],respuesta)
+    elif lista[0]%2 != 0:
+        return extraer_elementos_impares_cola_aux(lista[1:],respuesta+[lista[0]])
+    else:
+        return extraer_elementos_impares_cola_aux(lista[1:],respuesta)
+
+
+def separar_elementos_pares_impares_cola(lista):
+    """
+    Crea una lista con 2 listas, una de pares y una de impares
+    E: lista
+    S: lista con listas
+    R: tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return [extraer_elementos_impares_cola(lista)]+[extraer_elementos_pares_cola(lista)]
+
+
+def suma_conjuntos_cola(conjunto1,conjunto2):
+    """
+    Une 2 conjuntos
+    E: dos conjuntos
+    S: una conjunto
+    R: deben ser tipo list
+    """
+    if type(conjunto1) != list or type(conjunto2) != list:
+        return "Error 0"
+    else:
+        return suma_conjuntos_cola_aux(conjunto1,conjunto2)
+
+def suma_conjuntos_cola_aux(conjunto1,conjunto2):
+    #Función auxiliar
+    if conjunto2 == []:
+        return conjunto1
+    elif pertenece(conjunto1,conjunto2[0]):
+        return suma_conjuntos_cola_aux(conjunto1,conjunto2[1:])
+    else:
+        return suma_conjuntos_cola_aux(conjunto1+[conjunto2[0]],conjunto2[1:])
+
+    
+def multiplicar_escalar_vector_cola(escalar,vector):
+    """
+    Multiplica un escalar por todos los elementos de la vector
+    E: número y vector
+    S: vector escalada
+    R: debe ser tipo list y el número int o float
+    """
+    if type(vector) != list:
+        return "Error 0"
+    elif type(número) != int and type(número) != float:
+        return "Error 1"
+    else:
+        return multiplicar_escalar_vector_cola_aux(número,vector,[])
+
+def multiplicar_escalar_vector_cola_aux(número, vector, respuesta):
+    #Función auxiliar
+    if vector == []:
+        return respuesta
+    else:
+        return multiplicar_escalar_vector_cola_aux(número,vector[1:],respuesta+[vector[0]*número])
+
+
+def verificar_todos_numéricos_cola(lista):
+    """
+    Verifica que los elementos de una lista sean números
+    E: lista
+    S: True o False
+    R: tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return verificar_todos_numéricos_cola_aux(lista)
+
+
+def verificar_todos_numéricos_cola_aux(lista):
+    #Función auxiliar
+    if lista == []:
+        return True
+    elif type(lista[0]) == int or type(lista[0]) == float:
+        return verificar_todos_numéricos_cola_aux(lista[1:])
+    else:
+        return False
