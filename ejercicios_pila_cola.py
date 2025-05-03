@@ -805,3 +805,71 @@ def verificar_todos_numéricos_cola_aux(lista):
         return verificar_todos_numéricos_cola_aux(lista[1:])
     else:
         return False
+
+
+def invertir_lista_cola(lista):
+    """
+    Invierte una lista
+    E: lista
+    S: lista invertida
+    R: debe ser tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return invertir_lista_cola_aux(lista,[])
+
+def invertir_lista_cola_aux(lista,respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    else:
+       return invertir_lista_cola_aux(lista[1:],[lista[0]]+respuesta)
+
+
+
+def buscar_texto_cola(busca,texto):
+    """
+    Busca un texto corto dentro de uno más largo
+    E: Un texto largo y uno corto
+    S: True o False
+    R: textos deben ser tipo string
+    """
+    if type(texto) != str or type(busca) != str:
+        return "Error 0"
+    else:
+        return buscar_texto_cola_aux(busca,texto)
+
+def buscar_texto_cola_aux(busca,texto):
+    #Función auxiliar
+    if texto == "":
+        return False
+    elif eliminar_final_cola(len(busca),texto) == busca:
+        return True
+    else:
+        return buscar_texto_cola_aux(busca,texto[1:])
+
+
+def eliminar_final_cola(indice,texto):
+  """
+  Elimina el final de un texto según un índice
+  E: Un texto y un número.
+  S: Un texto sin el final
+  R: Texto tipo str, índice entero positivo.
+  """
+  if type(texto) != str:
+    return "Error 01"
+  elif type(indice) != int or indice < 0:
+    return "Error 02"
+  else:
+    return eliminar_final_cola_aux(indice, texto, "")
+
+def eliminar_final_cola_aux(indice, texto, respuesta):
+  #Función auxiliar
+  if indice == 0:
+    return respuesta
+  else:
+    return eliminar_final_cola_aux(indice-1,texto[1:],respuesta+texto[0])
+
+
+print(buscar_texto_cola("sapo","er spao sapo jaj"))
