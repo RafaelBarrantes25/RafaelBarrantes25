@@ -110,14 +110,7 @@ def mcd(num1,num2):
     else:
         return mcd_aux(num1,num2)
 
-def mcd_aux(num1,num2):
-    """
-    función auxiliar
-    """
-    if num1 % num2 == 0:
-        return num2
-    else:
-        return mcd_aux(num2,num1%num2)
+
 
 print(f"Máximo común divisor: {mcd(12,8)}")
 
