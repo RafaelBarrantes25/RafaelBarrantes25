@@ -110,6 +110,15 @@ def mcd(num1,num2):
     else:
         return mcd_aux(num1,num2)
 
+def mcd_aux(num1,num2):
+    """
+    función auxiliar
+    """
+    if num1 % num2 == 0:
+        return num2
+    else:
+        return mcd_aux(num2,num1%num2)
+
 
 
 print(f"Máximo común divisor: {mcd(12,8)}")
@@ -284,6 +293,7 @@ print(f"Eliminar final: {elim_final("holabuenas",7)}")
 #Esto multiplica escalar por vector
 def escalar_vector(escalar,vector):
     """
+    Multiplica un escalar por un vector
     E: Un número escalar y una lista vector
     S: La lista escalada
     R: Número y lista
