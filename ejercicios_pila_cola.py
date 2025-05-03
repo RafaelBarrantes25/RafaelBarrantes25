@@ -389,3 +389,263 @@ def dibujar_rectángulo_pila_aux(largo,ancho):
         return "* " * largo + "\n" + dibujar_rectángulo_pila_aux(largo,ancho-1)
     else:
         return "* " * largo + dibujar_rectángulo_pila_aux(largo,ancho)
+
+
+#Fin ejercicios pila
+
+
+#Inicio ejercicios cola
+
+
+def cuenta_digito_cola(num):
+    """
+    cuenta cuántos dígitos hay en un número
+    E: número
+    S: número de dígitos
+    R: número
+    """
+    if type(num) != int:
+        return "Error 1"
+    elif num == 0:
+        return 0
+    else:
+        return cuenta_digito_cola_aux(num,0)
+
+def cuenta_digito_cola_aux(num,cant):
+    #Función auxiliar
+    if num == 0:
+        return cant
+    else:
+        return cuenta_digito_cola_aux(num//10,cant+1)
+
+def factorial_cola(número):
+    """
+    Calcula el factorial de un número
+    E: número entero positivo
+    S: el factorial
+    R: debe ser un número, entero y positivo
+    """
+    if type(número) != int:
+        return "Error 1"
+    elif número < 0:
+        return "Error 2"
+    else:
+        return factorial_cola_aux(número,1)
+
+def factorial_cola_aux(número, resultado):
+    # Función auxiliar
+    if número == 0:
+        return resultado
+    else:
+        return factorial_cola_aux(número - 1, número * resultado)
+
+
+
+def mcd_cola(número1,número2):
+    """
+    E: 2 números
+    S: el MCM entre ambos
+    R: deben ser números
+    """
+    if type(número1) != int or type(número2) != int:
+        return "Error 0"
+    elif número1 < 0 or número2 < 0:
+        return "Error 1"
+    else:
+        return mcd_cola_aux(número1,número2)
+
+def mcd_cola_aux(número1,número2):
+    """
+    función auxiliar
+    """
+    if número1 % número2 == 0:
+        return número2
+    else:
+        return mcd_cola_aux(número2,número1%número2)
+
+
+def eliminar_digito_cola(digito, número):
+    """
+    Elimina un dígito de un número más largo
+    E: El número y el dígito, enteros positivos
+    S: El número sin el dígito
+    R: tienen que ser enteros positivos, dígito debe ser más corto
+    """
+    if type(número) != int or type(digito) != int:
+        return "Error 0"
+    elif digito >= 10 or digito < 0:
+        return "Error 1"
+    elif número < 0:
+        return "Error 2"
+    else:
+        return eliminar_digito_cola_aux(digito, número,1,0)
+
+def eliminar_digito_cola_aux(digito, número,número_nuevo,extra):
+    """
+    función auxiliar
+    """
+    if número == 0:
+        return extra
+    elif número % 10 == digito:
+        return eliminar_digito_cola_aux(digito,número//10,número_nuevo,extra)
+    else:
+        return eliminar_digito_cola_aux(digito,número//10,número_nuevo*10,extra+(número%10)*número_nuevo)
+
+
+def invertir_número_cola(número):
+    """
+    invierte número entero positivo
+    E: número
+    S: número invertido
+    R: entero positivo número
+    """
+    if type(número) != int:
+        return "Error 0"
+    elif número < 0:
+        return "Error 1"
+    else:
+        return invertir_número_cola_aux(número,10**(cuenta_digito_cola(número)-1),0)
+
+def invertir_número_cola_aux(número,potencia,result):
+    """
+    función auxiliar
+    """
+    if número == 0:
+        return result
+    else:
+        return invertir_número_cola_aux(número//10,potencia//10,result+(número%10)*potencia)
+
+
+def contar_vocales_cola(texto):
+    """
+    Cuenta las vocales de un texto
+    E: texto
+    S: número de vocales
+    R: texto debe ser tipo string
+    """
+    if type(texto) != str:
+        return "Error 0"
+    else:
+        return contar_vocales_cola_aux(texto,["a","e","i","o","u"],0)
+
+
+def comparar_cola(texto,lista):
+    #verifica si un str pertenece a una lista
+    if lista == []:
+        return False
+    elif texto == lista[0]:
+        return True
+    else:
+        return comparar_cola(texto,lista[1:])
+
+def contar_vocales_cola_aux(texto,vocales,respuesta):
+    #función auxiliar
+    if texto == "":
+        return respuesta
+    elif comparar_cola(texto[0],vocales) == True:
+        return contar_vocales_cola_aux(texto[1:],vocales,respuesta+1)
+    else:
+        return contar_vocales_cola_aux(texto[1:],vocales,respuesta)
+
+
+def invertir_texto_cola(texto):
+    """
+    Invierte un texto
+    E: texto
+    S: el texto al revés
+    R: debe ser tipo str
+    """
+    if type(texto) != str:
+        return "Error 0"
+    else:
+        return invertir_texto_cola_aux(texto,"")
+
+def invertir_texto_cola_aux(texto,respuesta):
+    if texto == "":
+        return respuesta
+    else:
+        return invertir_texto_cola_aux(texto[1:],texto[0]+respuesta)
+
+
+def es_número_palindromo_cola(número):
+    """
+    Revisa si un número es palíndromo
+    E: número
+    S: True o False, dependiendo si es palíndromo o no
+    R: debe ser número entero positivo
+    """
+    if type(número) != int:
+        return "Error 0"
+    elif num < 0:
+        return "Error 1"
+    else:
+        return es_número_palindromo_cola_aux(número)
+
+def es_número_palindromo_cola_aux(número):
+    #Función auxiliar
+    if número == invertir_número_cola(número):
+        return True
+    else:
+        return False
+
+def es_texto_palindromo_cola(texto):
+    """
+    Revisa si un texto es palíndromo o no
+    E: texto
+    S: True o False
+    R: debe ser tipo str
+    """
+    if type(texto) != str:
+        return "Error 0"
+    elif texto == invertir_texto_cola(texto):
+        return True
+    else:
+        return False
+
+
+def separa_palabras_cola(caracter,texto):
+    """
+    Separa un texto según un caracter
+    E: texto y caracter
+    S: texto separado
+    R: tipo str, solo un caracter
+    """
+    if type(texto) != str or type(caracter) != str:
+        return "Error 0"
+    elif caracter[1:] != "":
+        return "Error 1"
+    else:
+        return separa_palabras_cola(caracter,texto,[],"")
+
+def separa_palabras_cola_aux(caracter,texto,lista,respuesta):
+    #Función auxiliar
+    if texto == "":
+        return lista + [respuesta]
+    elif texto[0] == caracter:
+        return separa_palabras_cola_aux(caracter,texto[1:],
+                                   lista + [respuesta], "")
+    else:
+        return separa_palabras_cola_aux(caracter,texto[1:], lista,
+                                   respuesta + texto[0])
+
+
+
+
+def contar_elementos_cola(lista):
+    """
+    Cuenta los elementos de una lista
+    E: una lista
+    S: el número de elementos
+    R: la lista debe ser tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return contar_elementos_cola_aux(lista,0)
+
+def contar_elementos_cola_aux(lista, respuesta):
+    #Función auxiliar
+    if lista == []:
+        return respuesta
+    else:
+        return contar_elementos_cola_aux(lista[1:], respuesta+1)
