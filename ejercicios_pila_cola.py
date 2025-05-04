@@ -851,25 +851,84 @@ def buscar_texto_cola_aux(busca,texto):
 
 
 def eliminar_final_cola(indice,texto):
-  """
-  Elimina el final de un texto según un índice
-  E: Un texto y un número.
-  S: Un texto sin el final
-  R: Texto tipo str, índice entero positivo.
-  """
-  if type(texto) != str:
-    return "Error 01"
-  elif type(indice) != int or indice < 0:
-    return "Error 02"
-  else:
-    return eliminar_final_cola_aux(indice, texto, "")
+    """
+    Elimina el final de un texto según un índice
+    E: Un texto y un número.
+    S: Un texto sin el final
+    R: Texto tipo str, índice entero positivo.
+    """
+    if type(texto) != str:
+        return "Error 01"
+    elif type(indice) != int or indice < 0:
+        return "Error 02"
+    else:
+        return eliminar_final_cola_aux(indice, texto, "")
 
 def eliminar_final_cola_aux(indice, texto, respuesta):
   #Función auxiliar
-  if indice == 0:
-    return respuesta
-  else:
-    return eliminar_final_cola_aux(indice-1,texto[1:],respuesta+texto[0])
+    if indice == 0:
+        return respuesta
+    else:
+        return eliminar_final_cola_aux(indice-1,texto[1:],respuesta+texto[0])
 
 
-print(buscar_texto_cola("sapo","er spao sapo jaj"))
+def juntar_asteriscos(número,respuesta):
+    #Función auxiliar, devuelve str con el número de asteriscos
+    if número == 0:
+        return respuesta
+    else:
+        return juntar_asteriscos(número-1,respuesta+"* ")
+
+def dibujar_rectángulo_cola(largo, ancho):
+    """
+    Dibuja un rectángulo con asteriscos
+    E: la largo y ancho, como números enteros
+    S: Un string con el rectángulo
+    R: deben ser números enteros positivos
+    """
+    if type(largo) != int or type(ancho) != int:
+        return "Error 0"
+    else:
+        return dibujar_rectángulo_cola_aux(largo,ancho,"")
+
+def dibujar_rectángulo_cola_aux(largo,ancho,rectángulo):
+    #Función auxiliar
+    if ancho == 0:
+        return rectángulo
+    else:
+        return dibujar_rectángulo_cola_aux(largo,ancho-1,rectángulo+"\n"+juntar_asteriscos(largo,""))
+
+
+
+
+def unir_elementos(lista, elemento, respuesta):
+    """
+    Función auxiliar
+    """
+
+    if lista == []:
+        return respuesta
+    else:
+        return unir_elementos(lista[1:], elemento,respuesta + [[elemento] + [lista[0]]])
+
+def permutaciones_cola(lista1, lista2):
+    """
+    Permuta dos listas
+    E: Dos listas
+    S: Una lista de listas
+    R: Lista tipo list
+    """
+    if type(lista1) != list or type(lista2) != list:
+        return "Error 0"
+    else:
+        return permutaciones_cola_aux(lista1, lista2, [])
+
+def permutaciones_cola_aux(lista1, lista2, respuesta):
+  #Función auxiliar
+    if lista1 == []:
+        return respuesta
+    else:
+        return permutaciones_cola_aux(lista1[1:], lista2,respuesta + unir_elementos(lista2,lista1[0], []))
+
+
+
