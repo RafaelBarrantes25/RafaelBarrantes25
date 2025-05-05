@@ -1,8 +1,8 @@
 #Inicio ejercicios de pila
-from Recursividad_Cola import pertenece
+from tkinter.constants import SEPARATOR
 
 
-def factorial(número):
+def factorial_pila(número):
     """
     Calcula el factorial de un número
     E: Un número
@@ -14,10 +14,10 @@ def factorial(número):
     elif número == 0:
      return 1
     else:
-     return número*factorial(número-1)
+     return número*factorial_pila(número-1)
 
 
-def mcd(num1,num2):
+def mcd_pila(num1,num2):
     """
     E: 2 números
     S: el MCM entre ambos
@@ -28,21 +28,21 @@ def mcd(num1,num2):
     elif num1 < 0 or num2 < 0:
         return "Error 1"
     else:
-        return mcd_aux(num1,num2)
+        return mcd_pila_aux(num1,num2)
 
 
-def mcd_aux(num1,num2):
+def mcd_pila_aux(num1,num2):
     """
     función auxiliar
     """
     if num1 % num2 == 0:
         return num2
     else:
-        return mcd_aux(num2,num1%num2)
+        return mcd_pila_aux(num2,num1%num2)
 
 
 
-def eliminar_digito(dígito, número):
+def eliminar_digito_pila(dígito, número):
     """
     Elimina el dígito del número
     E: número y dígito
@@ -55,22 +55,22 @@ def eliminar_digito(dígito, número):
     elif type(dígito) !=int or dígito < 0 or dígito > 9:
      return "Error02"
     else:
-     return eliminar_digito_aux(dígito, número)
+     return eliminar_digito_pila_aux(dígito, número)
 
 
-def eliminar_digito_aux(dígito, número):
+def eliminar_digito_pila_aux(dígito, número):
     """
     Función auxiliar
     """
     if número==0:
      return 0
     elif número%10==dígito:
-     return eliminar_digito_aux(dígito, número//10)
+     return eliminar_digito_pila_aux(dígito, número//10)
     else:
-     return número%10+eliminar_digito_aux(dígito,número//10)*10
+     return número%10+eliminar_digito_pila_aux(dígito,número//10)*10
 
 
-def invertir_número(número):
+def  invertir_número_pila(número):
     """
     Invierte un número
     E: Un número
@@ -80,7 +80,7 @@ def invertir_número(número):
     if número == 0:
      return 0
     else:
-     return(número%10)*10**(numero_digitos(número)-1)+invertir_número(número//10)
+     return(número%10)*10**(numero_digitos(número)-1)+ invertir_número_pila(número//10)
 
 
 def numero_digitos(número):
@@ -96,32 +96,56 @@ def numero_digitos(número):
      return numero_digitos(número//10)+1
 
 
-def contar_dígito(dígito, número):
+def contar_digito_pila(digito, número):
     """
-    cuenta cuántas veces hay un dígito en un número
-    E: número y dígito
-    S: veces que aparece el dígito en el número
-    R: número entero, dígito entero entre 0 y 9 inclusive
+    cuenta cuántas veces hay un digito en un número
+    E: número y digito
+    S: veces que aparece el digito en el número
+    R: número entero, digito entero entre 0 y 9 inclusive
     """
 
     if type(número) != int:
      return "Error01"
-    elif type(dígito) != int or dígito < 0 or dígito > 9:
+    elif type(digito) != int or digito < 0 or digito > 9:
      return "Error02"
     else:
-     return contar_dígito_aux(dígito, número)
+     return contar_digito_pila_aux(digito, número)
 
 
-def contar_dígito_aux(dígito, número):
+def contar_digito_pila_aux(digito, número):
     """
     Función auxiliar
     """
     if número==0:
      return 0
-    elif número%10==dígito:
-     return 1+contar_dígito_aux(dígito,número//10)
+    elif número%10==digito:
+     return 1+contar_digito_pila_aux(digito,número//10)
     else:
-     return contar_dígito_aux(dígito,número//10)
+     return contar_digito_pila_aux(digito,número//10)
+
+
+def contar_caracter_pila(caracter, texto):
+    """
+    Cuenta las veces que un caracter aparece en un texto
+    E: caracter y texto
+    S: número de veces que aparece el caracter en el texto
+    R: Caracter longitud 1, ambos tipo str
+    """
+    if type(texto) != str or type(caracter) != str:
+        return "Error 0"
+    elif len(caracter) != 1:
+        return "Error 1"
+    else:
+        return contar_caracter_pila_aux(caracter, texto)
+
+def contar_caracter_pila_aux(caracter, texto):
+    #Función auxiliar
+    if texto == "":
+        return 0
+    elif texto[0] == caracter:
+        return 1+contar_caracter_pila(caracter, texto[1:])
+    else:
+        return contar_caracter_pila(caracter, texto[1:])
 
 
 def contar_vocales_pila(texto):
@@ -198,6 +222,56 @@ def  es_texto_palindromo_pila(texto):
         return True
     else:
         return False
+
+
+
+def eliminar_espacios_pila(texto):
+    """
+    elimina los espacios de un texto
+    E: Texto
+    S: texto sin espacios
+    R: Tiene que ser un texto
+    """
+    if type(texto) != str:
+        return "Error 1"
+    else:
+        return eliminar_espacios_pila_aux(texto)
+
+def eliminar_espacios_pila_aux(texto):
+    """
+    Función auxiliar
+    """
+    if texto == "":
+        return ""
+    elif texto[0] == " ":
+        return eliminar_espacios_pila_aux(texto[1:])
+    else:
+        return texto[0]+eliminar_espacios_pila_aux(texto[1:])
+
+
+
+def separar_palabras_pila(caracter, texto):
+    """
+    Cuenta las veces que un caracter aparece en un texto
+    E: caracter y texto
+    S: número de veces que aparece el caracter en el texto
+    R: Caracter longitud 1, ambos tipo str
+    """
+    if type(texto) != str or type(caracter) != str:
+        return "Error 0"
+    elif len(caracter) != 1:
+        return "Error 1"
+    else:
+        return separar_palabras_pila_aux(caracter, texto)
+
+def separar_palabras_pila_aux(caracter, texto):
+    # Función auxiliar
+    if texto == "":
+        return ""
+    elif texto[0] == caracter:
+        return ", " + separar_palabras_pila(caracter, texto[1:])
+    else:
+        return texto[0] + separar_palabras_pila(caracter, texto[1:])
 
 
 
@@ -739,6 +813,27 @@ def separar_elementos_pares_impares_cola(lista):
     else:
         return [extraer_elementos_impares_cola(lista)]+[extraer_elementos_pares_cola(lista)]
 
+
+def pertenece(lista,elemento):
+    """
+    Verifica si un elemento pertenece a una lista
+    E: elemento y lista
+    S: true o false
+    R: tipo list
+    """
+    if type(lista) != list:
+        return "Error 0"
+    else:
+        return pertenece_aux(lista,elemento)
+
+def pertenece_aux(lista,elemento):
+    #Función auxiliar
+    if lista == []:
+        return False
+    elif lista[0] == elemento:
+        return True
+    else:
+        return pertenece_aux(lista[1:],elemento)
 
 def suma_conjuntos_cola(conjunto1,conjunto2):
     """
