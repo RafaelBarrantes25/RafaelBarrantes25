@@ -12,7 +12,6 @@ def solicitar_comunidades():
     else:
         return generar_comunidades()
 
-import random
 
 
 def crear_comunidad(numero, extra):
