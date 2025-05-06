@@ -11,7 +11,7 @@ def solicitar_comunidades():
         return "Está bien\nFin del juego"
     else:
         pass
-#########Debe crearse una función que imprima las comunidadeds y sea llamada por esta
+#########Debe crearse una función que imprima las comunidadeds imprimir_valores() y sea llamada por esta
 
 
 def crear_comunidad(numero, extra):
@@ -81,12 +81,30 @@ def imprimir_valores():
 def imprimir_valores_aux(lista, respuesta):
     #Imprime las comunidades y sus valores
     if contar_elementos_cola(lista) == 0:
-        return respuesta
+        print(respuesta)
+        return verificar_valores(lista,[])
     else:
         return imprimir_valores_aux(lista[1:],respuesta+str(lista[0][0])+": "+"Acervo: "+str(lista[0][1])+" "+"Autonomía: "+str(lista[0][2])+"\n")
 
 
-print(imprimir_valores())
+
+def verificar_valores(lista1,lista2):
+    if len(lista1) == 0:
+        return restar_valores(lista2)
+    elif lista1[0][1] <= 0 or lista1[0][2] <= 0:
+        return finalizar(lista1)
+    else:
+        return verificar_valores(lista1[1:],lista2+[lista1[0]])
+
+
+def finalizar(lista):
+    return "Fin del juego"
+
+def restar_valores(lista):
+    lista2 = lista[random.randint(0,len(lista))][random.randint(1,2)]-1
+    print(imprimir_valores_aux(lista2,[]))
+
+imprimir_valores()
 #Se inicia llamando a solicitar_comunidades()
 
 
