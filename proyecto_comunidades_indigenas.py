@@ -41,5 +41,18 @@ def generar_comunidades_aux(numero, lista=[],extra=1):
         lista.append(crear_comunidad(numero,extra))
         return generar_comunidades_aux(numero-1,lista,extra+1)
 
+def imprimir_valores():
+    #Obtiene la lista de valores y la pasa
+    return imprimir_valores_aux(generar_comunidades(),"",[])
 
-print(generar_comunidades())
+
+
+def imprimir_valores_aux(lista, respuesta,lista2):
+    #Imprime las comunidades y sus valores
+    if len(lista) == 0:
+        print(respuesta)
+
+    else:
+        return imprimir_valores_aux(lista[1:],respuesta+str(lista[0][0])+": "+"Acervo: "+str(lista[0][1])+" "+"Autonomía: "+str(lista[0][2])+"\n",lista2+lista[0])
+
+imprimir_valores()
