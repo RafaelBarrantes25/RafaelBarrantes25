@@ -5,7 +5,7 @@ def cuenta_digito(num):
     E: número
     S: número de dígitos
     R: número
-    """
+    """ 
     if type(num) != int:
         return "Error 1"
     elif num == 0:
