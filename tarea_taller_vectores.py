@@ -27,7 +27,9 @@ def vector_nulo(vector):
     S: True o False
     R: Vector lista
     """
-    if vector == []:
+    if type(vector) != list:
+        return "Error 0"
+    elif vector == []:
         return True
     elif vector[0] == 0:
         return vector_nulo(vector[1:])
@@ -38,7 +40,9 @@ def vectores_iguales(vector1,vector2):
     """
     Revisa si dos vectores son iguales
     """
-    if len(vector1) != len(vector2):
+    if type(vector1) != list or type(vector2) != list:
+        return "Error 0"
+    elif len(vector1) != len(vector2):
         return False
     elif vector1 == []:
         return True
@@ -54,12 +58,14 @@ def suma(vector1,vector2):
     S: un vector con la suma
     R: números
     """
-    if len(vector1) != len(vector2):
+    if type(vector1) != list or type(vector2) != list:
         return "Error 0"
-    elif verificar_todos_numéricos_cola(vector1) == False:
+    elif len(vector1) != len(vector2):
         return "Error 1"
-    elif verificar_todos_numéricos_cola(vector2) == False:
+    elif verificar_todos_numéricos_cola(vector1) == False:
         return "Error 2"
+    elif verificar_todos_numéricos_cola(vector2) == False:
+        return "Error 3"
     else:
         return suma_aux(vector1,vector2,[])
 
@@ -79,12 +85,14 @@ def resta(vector1,vector2):
     S: un vector con la resta
     R: números
     """
-    if len(vector1) != len(vector2):
+    if type(vector1) != list or type(vector2) != list:
         return "Error 0"
-    elif verificar_todos_numéricos_cola(vector1) == False:
+    elif len(vector1) != len(vector2):
         return "Error 1"
-    elif verificar_todos_numéricos_cola(vector2) == False:
+    elif verificar_todos_numéricos_cola(vector1) == False:
         return "Error 2"
+    elif verificar_todos_numéricos_cola(vector2) == False:
+        return "Error 3"
     else:
         return resta_aux(vector1,vector2,[])
     
@@ -109,8 +117,8 @@ def producto_escalar_aux(número, vector, respuesta):
     if vector == []:
         return respuesta
     else:
-        return producto_escalar_aux(número, vector[1:], respuesta + [vector[0] * número])
-
+        return producto_escalar_aux(número, vector[1:], respuesta + [número * vector[0]])
+print(producto_escalar(3,[2,3,4]))
 
 
 def resta_aux(vector1,vector2,resultado):
@@ -119,4 +127,31 @@ def resta_aux(vector1,vector2,resultado):
         return resultado
     else:
         return resta_aux(vector1[1:],vector2[1:],resultado+([vector1[0]-vector2[0]]))
+
+def producto_vectores(vector1, vector2):
+    """
+    Calcula el producto de dos vectores
+    E: dos vectores
+    S: el producto
+    R: vectores con números dentro
+    """
+    if type(vector1) != list or type(vector2) != list:
+        return "Error 0"
+    if len(vector1) != len(vector2):
+        return "Error 1"
+    elif verificar_todos_numéricos_cola(vector1) == False:
+        return "Error 2"
+    elif verificar_todos_numéricos_cola(vector2) == False:
+        return "Error 3"
+    else:
+        return producto_vectores_aux(vector1, vector2, 0)
+
+def producto_vectores_aux(vector1,vector2,resultado):
+    #Función auxiliar
+    if vector1 == [] or vector2 == []:
+        return resultado
+    else:
+        return producto_vectores_aux(vector1[1:],vector2[1:],resultado+vector1[0]*vector2[0])
+
+
 
