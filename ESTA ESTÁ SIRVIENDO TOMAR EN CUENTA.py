@@ -77,11 +77,17 @@ def restar_valores(lista1, restar, lista2):
 
 
 def restar_valores_aux(lista):
-    número = random.randint(0, len(lista) - 1)
-    número2 = random.randint(0, 3)
-    restar = [lista[número][0], lista[número]
-              [1] - número2, lista[número][2] - número2]
-    return restar_valores(lista, restar, [])
+    número = random.randint(0, len(lista) - 1) #escoge una comunidad aleatoria
+    número2 = random.randint(0, 3) #escoge en cuánto se va a disminuir el valor
+    número3 = random.randint(1,2) #para decidir si se resta el acervo o la autonomía
+    restar_acervo = [lista[número][0], lista[número]
+              [1] - número2, lista[número][2]]
+    restar_autonomía =[lista[número][0], lista[número]
+              [1], lista[número][2]-número2]
+    if número3 == 1:
+        return restar_valores(lista, restar_acervo, [])
+    else:
+        return restar_valores(lista,restar_autonomía,[])
 
 
 def elegir(lista, respuesta):
