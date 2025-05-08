@@ -1,5 +1,4 @@
 # Inicio ejercicios de pila
-from tkinter.constants import SEPARATOR
 
 
 def factorial_pila(número):
