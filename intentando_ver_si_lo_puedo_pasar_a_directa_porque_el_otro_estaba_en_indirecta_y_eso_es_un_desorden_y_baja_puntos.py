@@ -27,9 +27,7 @@ def crear_comunidad(numero, extra):
     return [nombre, acervo, autonomia]
 
 
-def generar_comunidades():
-    numero = random.randint(5, 9)
-    return generar_comunidades_aux(numero, extra=1)
+
 
 
 def generar_comunidades_aux(numero, lista=[], extra=1):
@@ -42,16 +40,13 @@ def generar_comunidades_aux(numero, lista=[], extra=1):
         return generar_comunidades_aux(numero-1, lista, extra+1)
 
 
-def imprimir_valores():
-    # Obtiene la lista de valores y la pasa
-    return imprimir_valores_aux(generar_comunidades(), "", [])
+
 
 
 def imprimir_valores_aux(lista, respuesta, lista2):
     # Imprime las comunidades y sus valores
     if len(lista) == 0:
-        print(respuesta)
-        return elegir(lista2,"")  #Esto es lo que tiene la lista con las comunidades IMPORTANTE
+        return respuesta
     else:
         return imprimir_valores_aux(lista[1:], respuesta+str(lista[0][0])+": "+"Acervo: "+str(lista[0][1])+" "+"Autonomía: "+str(lista[0][2])+"\n", lista2+[lista[0]])
 
@@ -108,7 +103,43 @@ def verificar_numéricos(string, string2=""):
 
 
 
-def elegir(lista, respuesta):
+def verificar_elegir1(lista,elección):
+    
+    if lista == []:
+        print("Error 3: la comunidad no existe")
+    elif lista[0][0][10:11] == elección:
+        return elección
+    else:
+        return verificar_elegir1(lista[1:],elección)
+
+
+
+
+def verificar_elegir2(lista,elección2):
+    if elección2 != "1" and elección2 != "2":
+        return "Error 5: Esa no es una opción"
+    else:
+        return elección2
+
+
+
+def sumar_valores(lista, elección1, elección2,lista_nueva=[]):
+    elección1 = int(elección1)
+    valor = random.randint(1,3)
+    if lista == []:
+        return lista_nueva
+    if elección2 == "1" and lista[0][0][10:] == elección1:
+        suma = lista[elección1][1] + valor
+        return sumar_valores(lista[1:], elección1, elección2, lista_nueva+[[lista[elección1][0], suma, lista[elección1][2]]])
+    elif elección2 == "2" and lista[0][0][10:] == elección1:
+        suma = lista[elección1][2] + valor
+        return sumar_valores(lista[1:], elección1, elección2, lista_nueva+[[lista[elección1][0], lista[elección1][1], suma]])
+    elif lista[0][0][10:] != elección1:
+        return sumar_valores(lista[1:], elección1, elección2, lista_nueva+[lista[0]])
+    else:
+        return "Error 4"
+
+def elegir(lista, respuesta=""):
     """
     Le pregunta al usuario a cuál comunidad le quiere subir los valores
     E: El input del usuario, un número
@@ -175,7 +206,23 @@ def juego(turno):
     R: ninguna
     """
     if turno == 0:
-        pass        
+        numero = random.randint(5, 9) #Número aleatorio, define el número de comunidades
+        lista = generar_comunidades_aux(numero, extra=1) #devuelve una lista con las comunidades
+
+        comunidades_ordenadas = imprimir_valores_aux(lista, "", []) #Ordena las comunidades en una string
+        print(comunidades_ordenadas) 
+        elección1 = input("Escoja la comunidad en la que quiere\nejecutar el proyecto (solo el número): ")
+        comunidad_elegida = verificar_elegir1(lista,elección1) #elige comunidad y revisa que exista
+        elección2 = input("¿Qué proyecto quiere ejecutar?\n1: Acervo\n2: Autonomía\n")
+        acervo_o_autonomia = verificar_elegir2(lista,elección2) #elige si sube el acervo o la autonomía
+        
+        lista = sumar_valores(lista, comunidad_elegida, acervo_o_autonomia, [])
+
+        comunidades_tras_suma = imprimir_valores_aux(lista, "", []) #Ordena las comunidades en una string
+        print(comunidades_tras_suma) 
 
 
-imprimir_valores()
+
+
+
+juego(0)
