@@ -38,7 +38,7 @@ def generar_comunidades_aux(numero, lista=[], extra=1):
     if numero == 0:
         return lista
     else:
-        lista.append(crear_comunidad(numero, extra))
+        lista += [crear_comunidad(numero, extra)]
         return generar_comunidades_aux(numero-1, lista, extra+1)
 
 
