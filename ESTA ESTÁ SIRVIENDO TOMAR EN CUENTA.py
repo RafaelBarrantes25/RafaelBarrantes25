@@ -90,9 +90,45 @@ def restar_valores_aux(lista):
         return restar_valores(lista,restar_autonomía,[])
 
 
+
+def verificar_numéricos(string, string2=""):
+    """
+    Verifica si el input es un número
+    E: un string
+    S: si es un número, lo pasa a la función verificar_elegir
+    si no, dice eso
+    R: nada
+    """
+    if string == "":
+        return string2
+    elif string[0] == "0" or string[0] == "1" or string[0] == "2" or string[0] == "3" or string[0] == "4" or string[0] == "5" or string[0] == "6" or string[0] == "7" or string[0] == "8" or string[0] == "9":
+        return verificar_numéricos(string[1:], string2+string[0])
+    else:
+        return "JAJAJEJE"
+
+
+
 def elegir(lista, respuesta):
-    if input("sapo: ") == "1":
-        return restar_valores_aux(lista)
+    """
+    Le pregunta al usuario a cuál comunidad le quiere subir los valores
+    E: El input del usuario, un número
+    S: envía el resultado a verificar_elegir para ver si existe la comunidad
+    R: debe ser un número de una comunidad existente
+    """
+    elección = input("Escoja la comunidad en la que quiere\nejecutar el proyecto (solo el número): ")
+    if elección != "":
+        return verificar_elegir(lista, elección,[])
+    else:
+        return "Error 0"
+    
+def verificar_elegir(lista,elección,lista2):
+    """
+    Verifica que la comunidad que eligió existe
+    E: la lista de comunidades
+    S: si existe, envía la lista para que se le sume el valor
+    R: la comunidad debe existir
+    """
+    print(elección)
 
 def finalizar():
     print("Fin")
