@@ -78,7 +78,7 @@ def restar_valores(lista1, restar, lista2):
 
 def restar_valores_aux(lista):
     número = random.randint(0, len(lista) - 1) #escoge una comunidad aleatoria
-    número2 = random.randint(0, 3) #escoge en cuánto se va a disminuir el valor
+    número2 = random.randint(1, 3) #escoge en cuánto se va a disminuir el valor
     número3 = random.randint(1,2) #para decidir si se resta el acervo o la autonomía
     restar_acervo = [lista[número][0], lista[número]
               [1] - número2, lista[número][2]]
@@ -130,20 +130,31 @@ def verificar_elegir(lista,elección,elección2,lista2):
     R: la comunidad debe existir
     """
     valor = random.randint(1,3)
-    if verificar_numéricos(elección) and verificar_numéricos(elección2):
-        if elección2 != "1" and elección2 != "2":
-            return "Error 5: Esa no es una opción"
-        if lista == []:
-            print(lista2)
-        elif lista[0][0][10:] == elección:
-            return verificar_elegir(lista[1:], elección, elección2, lista2+[lista[0][int(elección2)]+valor])
-        elif lista[0][0][10:] != elección:
-            return verificar_elegir(lista[1:], elección, elección2, lista2+[lista[0]])
-        else:
-            return "Error 4"
-    else:
-        return "Error 6: Eso no es un número"
 
+    if elección2 != "1" and elección2 != "2":
+        return "Error 5: Esa no es una opción"
+    if lista == []:
+    
+        return turno_cpu(lista2)
+    elif lista[0][0][10:] == elección and elección2 == "1":
+        suma = lista[0][1] + valor
+        return verificar_elegir(lista[1:], elección, elección2, lista2+[[lista[0][0], suma, lista[0][2]]])
+    elif lista[0][0][10:] == elección and elección2 == "2":
+        suma = lista[0][2] + valor
+        return verificar_elegir(lista[1:], elección, elección2, lista2+[[lista[0][0], lista[0][1], suma]])
+    elif lista[0][0][10:] != elección:
+        return verificar_elegir(lista[1:], elección, elección2, lista2+[lista[0]])
+    else:
+        return "Error 4"
+
+
+
+
+def turno_cpu(lista):
+    print("Turno CPU")
+    lista2 = restar_valores_aux(lista)
+    imprimir_valores(lista2)
+    return elegir(lista2,"")
 
 def finalizar():
     print("Fin")
