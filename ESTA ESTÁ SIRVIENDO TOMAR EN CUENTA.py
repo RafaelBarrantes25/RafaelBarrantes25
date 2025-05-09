@@ -100,11 +100,11 @@ def verificar_numéricos(string, string2=""):
     R: nada
     """
     if string == "":
-        return string2
+        return True
     elif string[0] == "0" or string[0] == "1" or string[0] == "2" or string[0] == "3" or string[0] == "4" or string[0] == "5" or string[0] == "6" or string[0] == "7" or string[0] == "8" or string[0] == "9":
         return verificar_numéricos(string[1:], string2+string[0])
     else:
-        return "JAJAJEJE"
+        return "Error 2: Eso no es un número"
 
 
 
@@ -116,19 +116,34 @@ def elegir(lista, respuesta):
     R: debe ser un número de una comunidad existente
     """
     elección = input("Escoja la comunidad en la que quiere\nejecutar el proyecto (solo el número): ")
-    if elección != "":
-        return verificar_elegir(lista, elección,[])
+    elección2 = input("¿Qué proyecto quiere ejecutar?\n1: Acervo\n2: Autonomía\n")
+    if elección != "" and elección2 != "":
+        return verificar_elegir(lista, elección,elección2,[])
     else:
-        return "Error 0"
+        return "Error 1"
     
-def verificar_elegir(lista,elección,lista2):
+def verificar_elegir(lista,elección,elección2,lista2):
     """
     Verifica que la comunidad que eligió existe
     E: la lista de comunidades
     S: si existe, envía la lista para que se le sume el valor
     R: la comunidad debe existir
     """
-    print(elección)
+    valor = random.randint(1,3)
+    if verificar_numéricos(elección) and verificar_numéricos(elección2):
+        if elección2 != "1" and elección2 != "2":
+            return "Error 5: Esa no es una opción"
+        if lista == []:
+            print(lista2)
+        elif lista[0][0][10:] == elección:
+            return verificar_elegir(lista[1:], elección, elección2, lista2+[lista[0][int(elección2)]+valor])
+        elif lista[0][0][10:] != elección:
+            return verificar_elegir(lista[1:], elección, elección2, lista2+[lista[0]])
+        else:
+            return "Error 4"
+    else:
+        return "Error 6: Eso no es un número"
+
 
 def finalizar():
     print("Fin")
