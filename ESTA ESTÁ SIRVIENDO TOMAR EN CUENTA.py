@@ -134,8 +134,8 @@ def verificar_elegir(lista,elección,elección2,lista2):
     if elección2 != "1" and elección2 != "2":
         return "Error 5: Esa no es una opción"
     if lista == []:
-    
         return turno_cpu(lista2)
+
     elif lista[0][0][10:] == elección and elección2 == "1":
         suma = lista[0][1] + valor
         return verificar_elegir(lista[1:], elección, elección2, lista2+[[lista[0][0], suma, lista[0][2]]])
@@ -151,9 +151,16 @@ def verificar_elegir(lista,elección,elección2,lista2):
 
 
 def turno_cpu(lista):
-    print("Turno CPU")
+    """
+    Después del turno del jugador, vienen los misioneros o las
+    mineras y le restan valores de acervo cultural o autonomía a una comunidad
+    E: lista de comunidades
+    S: lista con valores restados
+    R: ninguna
+    """
+    print("Bajan valores")
     lista2 = restar_valores_aux(lista)
-    imprimir_valores(lista2)
+    imprimir_valores_aux(lista2, "", [])
     return elegir(lista2,"")
 
 def finalizar():
