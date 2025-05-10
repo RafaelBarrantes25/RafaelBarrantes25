@@ -61,13 +61,15 @@ def restar_valores(lista1, restar, lista2):
 def restar_valores_aux(lista,número3):
     número = random.randint(0, len(lista) - 1) #escoge una comunidad aleatoria
     número2 = random.randint(1, 3) #escoge en cuánto se va a disminuir el valor
-    restar_acervo = [lista[número][0], lista[número]
-              [1] - número2, lista[número][2]]
+    
     restar_autonomía =[lista[número][0], lista[número]
               [1], lista[número][2]-número2]
     if número3 == 1:
+        restar_acervo = [lista[número][0], lista[número]
+              [1] - número2, lista[número][2]]
         return restar_valores(lista, restar_acervo, [])
     elif número3 == 2:
+        
         return restar_valores(lista,restar_autonomía,[])
     else:
         return "Error 6: No se puede restar el valor de la comunidad"
@@ -126,6 +128,8 @@ def sumar_valores(lista, comunidad_elegida, elección2,lista_nueva=[]):
         return "Error 4"
 
 
+
+
 def finalizar():
     print("Fin")
     
@@ -173,7 +177,7 @@ def juego(turno):
         else:
             print("\nLas mineras bajaron la autonomía de una comunidad\n")
 
-        lista_bajada = restar_valores_aux(lista,misioneros_o_mineras) #baja el valor de una comunidad
+        lista_bajada = restar_valores_aux(lista_nueva,misioneros_o_mineras) #baja el valor de una comunidad
         comunidades_tras_bajada = imprimir_valores_aux(lista_bajada, "", [])
         print(comunidades_tras_bajada)
 
