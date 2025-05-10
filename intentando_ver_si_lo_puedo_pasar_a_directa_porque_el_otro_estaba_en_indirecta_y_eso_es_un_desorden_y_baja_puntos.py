@@ -40,13 +40,13 @@ def imprimir_valores_aux(lista, respuesta, lista2):
 
 def verificar_valores(lista2, lista3):
     if lista2 == [] and lista3 != []:
-        print(imprimir_valores_aux(lista3, "", []))
+        return lista3
     elif lista2 == [] and lista3 == []:
-        return finalizar()
+        return False
     elif lista2[0][1] <= 0 or lista2[0][2] <= 0:
         return verificar_valores(lista2[1:], lista3)
     else:
-        return verificar_valores(lista2[1:], [lista2[0]]+lista3)
+        return verificar_valores(lista2[1:], lista3+[lista2[0]])
 
 
 def restar_valores(lista1, restar, lista2):
@@ -134,20 +134,24 @@ def finalizar():
     print("Fin")
     
 
-def juego(turno):
+def juego(turno, lista_nueva=[]):
     """
     Función principal del juego
     E: el turno del jugador
     S: el resultado de la función
     R: ninguna
     """
-  
-    numero = random.randint(3,5) #Número aleatorio, define el número de comunidades
-    lista = generar_comunidades_aux(numero, extra=1) #devuelve una lista con las comunidades
-
-    
-    comunidades_ordenadas = imprimir_valores_aux(lista, "", []) #Ordena las comunidades en una string
-    print(comunidades_ordenadas) 
+    numero = 0
+    lista = []
+    if lista == lista_nueva:
+        numero = random.randint(3,5) #Número aleatorio, define el número de comunidades
+        lista = generar_comunidades_aux(numero, extra=1) #devuelve una lista con las comunidades
+        comunidades_ordenadas = imprimir_valores_aux(lista, "", []) #Ordena las comunidades en una string
+        print(f"\n La lista de comunidades actual es:\n{comunidades_ordenadas}\n")
+    else:
+        lista = lista_nueva
+        numero = 0
+     
 
     if turno == 0:
         elección1 = input("Escoja la comunidad en la que quiere\nejecutar el proyecto (solo el número): ")
@@ -180,6 +184,13 @@ def juego(turno):
         lista_bajada = restar_valores_aux(lista_nueva,misioneros_o_mineras) #baja el valor de una comunidad
         comunidades_tras_bajada = imprimir_valores_aux(lista_bajada, "", [])
         print(comunidades_tras_bajada)
+        
+        lista_final = verificar_valores(lista_bajada, [])
+        if lista_final != False:
+            return juego(0,lista_final)
+        else:
+            print("Fin del juego")
+            return finalizar()
 
 
 
