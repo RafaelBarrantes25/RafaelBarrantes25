@@ -123,19 +123,18 @@ def verificar_elegir2(lista,elección2):
 
 
 
-def sumar_valores(lista, elección1, elección2,lista_nueva=[]):
-    elección1 = int(elección1)
+def sumar_valores(lista, comunidad_elegida, elección2,lista_nueva=[]):
     valor = random.randint(1,3)
     if lista == []:
         return lista_nueva
-    if elección2 == "1" and lista[0][0][10:] == elección1:
-        suma = lista[elección1][1] + valor
-        return sumar_valores(lista[1:], elección1, elección2, lista_nueva+[[lista[elección1][0], suma, lista[elección1][2]]])
-    elif elección2 == "2" and lista[0][0][10:] == elección1:
-        suma = lista[elección1][2] + valor
-        return sumar_valores(lista[1:], elección1, elección2, lista_nueva+[[lista[elección1][0], lista[elección1][1], suma]])
-    elif lista[0][0][10:] != elección1:
-        return sumar_valores(lista[1:], elección1, elección2, lista_nueva+[lista[0]])
+    elif elección2 == "1" and lista[0][0][10:] == comunidad_elegida:
+        suma = lista[0][1] + valor
+        return sumar_valores(lista[1:], comunidad_elegida, elección2, lista_nueva+[[lista[0][0], suma, lista[0][2]]])
+    elif elección2 == "2" and lista[0][0][10:] == comunidad_elegida:
+        suma = lista[0][2] + valor
+        return sumar_valores(lista[1:], comunidad_elegida, elección2, lista_nueva+[[lista[0][0], lista[0][1], suma]])
+    elif lista[0][0][10:] != comunidad_elegida:
+        return sumar_valores(lista[1:], comunidad_elegida, elección2, lista_nueva+[lista[0]])
     else:
         return "Error 4"
 
@@ -206,7 +205,7 @@ def juego(turno):
     R: ninguna
     """
     if turno == 0:
-        numero = random.randint(5, 9) #Número aleatorio, define el número de comunidades
+        numero = random.randint(3,5) #Número aleatorio, define el número de comunidades
         lista = generar_comunidades_aux(numero, extra=1) #devuelve una lista con las comunidades
 
         comunidades_ordenadas = imprimir_valores_aux(lista, "", []) #Ordena las comunidades en una string
@@ -216,10 +215,14 @@ def juego(turno):
         elección2 = input("¿Qué proyecto quiere ejecutar?\n1: Acervo\n2: Autonomía\n")
         acervo_o_autonomia = verificar_elegir2(lista,elección2) #elige si sube el acervo o la autonomía
         
-        lista = sumar_valores(lista, comunidad_elegida, acervo_o_autonomia, [])
+        lista_nueva = sumar_valores(lista, comunidad_elegida, acervo_o_autonomia, [])
 
-        comunidades_tras_suma = imprimir_valores_aux(lista, "", []) #Ordena las comunidades en una string
-        print(comunidades_tras_suma) 
+        comunidades_tras_suma = imprimir_valores_aux(lista_nueva, "", []) #Ordena las comunidades en una string
+        print(comunidades_tras_suma)
+        turno = 1
+
+    if turno == 1:
+        print("haha")
 
 
 
