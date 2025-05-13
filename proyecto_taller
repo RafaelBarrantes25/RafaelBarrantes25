@@ -75,27 +75,10 @@ def restar_valores_aux(lista,número3):
         return "Error 6: No se puede restar el valor de la comunidad"
 
 
-def verificar_numéricos(string, string2=""):
-    """
-    Verifica si el input es un número
-    E: un string
-    S: si es un número, lo pasa a la función verificar_elegir
-    si no, dice eso
-    R: nada
-    """
-    if string == "":
-        return True
-    elif string[0] == "0" or string[0] == "1" or string[0] == "2" or string[0] == "3" or string[0] == "4" or string[0] == "5" or string[0] == "6" or string[0] == "7" or string[0] == "8" or string[0] == "9":
-        return verificar_numéricos(string[1:], string2+string[0])
-    else:
-        return "Error 2: Eso no es un número"
-
-
-
 def verificar_elegir1(lista,elección):
     
     if lista == []:
-        print("Error 3: la comunidad no existe")
+        return False
     elif lista[0][0][10:11] == elección:
         return elección
     else:
@@ -104,9 +87,9 @@ def verificar_elegir1(lista,elección):
 
 
 
-def verificar_elegir2(lista,elección2):
+def verificar_elegir2(elección2):
     if elección2 != "1" and elección2 != "2":
-        return "Error 5: Esa no es una opción"
+        return False
     else:
         return elección2
 
@@ -154,11 +137,17 @@ def juego(turno, lista_nueva=[]):
      
 
     if turno == 0:
-        elección1 = input("Escoja la comunidad en la que quiere\nejecutar el proyecto (solo el número): ")
-        comunidad_elegida = verificar_elegir1(lista,elección1) #elige comunidad y revisa que exista
-        elección2 = input("¿Qué proyecto quiere ejecutar?\n1: Acervo\n2: Autonomía\n")
-        acervo_o_autonomia = verificar_elegir2(lista,elección2) #elige si sube el acervo o la autonomía
 
+        elección1 = input("Escoja la comunidad en la que quiere\nejecutar el proyecto (solo el número): ")
+        if verificar_elegir1(lista,elección1) == False: #elige comunidad y revisa que exista
+            print("Error 1: Esa no es una comunidad")
+            return juego(0, lista)
+        
+        acervo_o_autonomia = input("¿Qué proyecto quiere ejecutar?\n1: Acervo\n2: Autonomía\n")
+        if verificar_elegir2(acervo_o_autonomia) == False: #elige si sube el acervo o la autonomía
+            print("Error 2: Esa no es una opción")
+            return juego(0, lista)
+        
         #Revisa si eligió acervo o autonomía e imprime un mensaje
         if acervo_o_autonomia == "1":
             print("\nEjecutó un proyecto que aumentó el acervo cultural de la comunidad "+elección1+"\n")
@@ -168,7 +157,7 @@ def juego(turno, lista_nueva=[]):
             return "Error 5: Esa no es una opción"
         
         #Imprime la lista con los valores sumados
-        lista_nueva = sumar_valores(lista, comunidad_elegida, acervo_o_autonomia, [])
+        lista_nueva = sumar_valores(lista, elección1, acervo_o_autonomia, [])
 
         comunidades_tras_suma = imprimir_valores_aux(lista_nueva, "", []) #Ordena las comunidades en una string
         print(comunidades_tras_suma)
@@ -194,5 +183,5 @@ def juego(turno, lista_nueva=[]):
 
 
 
-
+#Para iniciar el juego, se llama a juego(0)
 juego(0)
