@@ -1,7 +1,7 @@
 import random
 
 
-def crear_comunidad(numero, extra):
+def crear_comunidad(extra):
     """
     crea comunidad
     E: número
@@ -23,7 +23,7 @@ def generar_comunidades_aux(numero, lista=[], extra=1):
     if numero == 0:
         return lista
     else:
-        lista += [crear_comunidad(numero, extra)]
+        lista += [crear_comunidad(extra)]
         return generar_comunidades_aux(numero-1, lista, extra+1)
 
 
@@ -31,7 +31,9 @@ def generar_comunidades_aux(numero, lista=[], extra=1):
 
 
 def imprimir_valores_aux(lista, respuesta, lista2):
-    # Imprime las comunidades y sus valores
+    """
+    
+    """
     if len(lista) == 0:
         return respuesta
     else:
@@ -39,17 +41,32 @@ def imprimir_valores_aux(lista, respuesta, lista2):
 
 
 def verificar_valores(lista2, lista3):
+    """
+    Verifica si algún valor de una comunidad llega a 0, la elimina e imprime
+    un mensaje si sí
+    E: lista de comunidades
+    S: lista de comunidades con una eliminada si llega a 0, y
+    un mensaje avisando que fue eliminada
+    R: ninguna
+    """
     if lista2 == [] and lista3 != []:
         return lista3
     elif lista2 == [] and lista3 == []:
         return False
     elif lista2[0][1] <= 0 or lista2[0][2] <= 0:
+        print("La comunidad "+lista2[0][0][10]+" ha sido eliminada")
         return verificar_valores(lista2[1:], lista3)
     else:
         return verificar_valores(lista2[1:], lista3+[lista2[0]])
 
 
 def restar_valores(lista1, restar, lista2):
+    """
+    le resta valor de acervo o autonomía a una comunidad
+    E: la lista de comunidades y la comunidad que se le va a restar
+    S: la lista de comunidades con el valor restado
+    R: ninguna
+    """
     if len(lista1) == 0:
         return lista2
     elif lista1[0][0] == restar[0]:
@@ -72,11 +89,17 @@ def restar_valores_aux(lista,número3):
         
         return restar_valores(lista,restar_autonomía,[])
     else:
-        return "Error 6: No se puede restar el valor de la comunidad"
+        return "Error 3: No se puede restar el valor de la comunidad"
+
 
 
 def verificar_elegir1(lista,elección):
-    
+    """
+    verifica que exista la comunidad elegida
+    E: lista de comunidades y la que eligió
+    S: la eleccción
+    R: ninguna
+    """
     if lista == []:
         return False
     elif lista[0][0][10:11] == elección:
@@ -88,6 +111,13 @@ def verificar_elegir1(lista,elección):
 
 
 def verificar_elegir2(elección2):
+    """
+    Verifica que elija 1 o 2 cuando le pregunte si quiere
+    aumentar el acervo o autonomía
+    E: la elección
+    S: la elección si existe, sino False
+    R: ninguna
+    """
     if elección2 != "1" and elección2 != "2":
         return False
     else:
@@ -96,6 +126,12 @@ def verificar_elegir2(elección2):
 
 
 def sumar_valores(lista, comunidad_elegida, elección2,lista_nueva=[]):
+    """
+    Le suma el valor de acervo o autonomía a la comunidad elegida, aleatorio en rango de 1 a 3
+    E: lista de comunidades, comunidad elegida, elección de acervo o autonomía
+    S: lista de comunidades con el valor sumado
+    R: ninguna
+    """
     valor = random.randint(1,3)
     if lista == []:
         return lista_nueva
@@ -108,13 +144,14 @@ def sumar_valores(lista, comunidad_elegida, elección2,lista_nueva=[]):
     elif lista[0][0][10:] != comunidad_elegida:
         return sumar_valores(lista[1:], comunidad_elegida, elección2, lista_nueva+[lista[0]])
     else:
-        return "Error 4"
-
-
+        return "Error 4, no se puede sumar el valor de la comunidad"
 
 
 def finalizar():
-    print("Fin")
+    #Imprime mensajes cuando acaba el juego
+    print("Todas las comunidades indígenas han sido eliminadas.")   
+    print("Las empresas mineras y los misioneros han ganado.")
+    print("Fin del juego.")
     
 
 def juego(turno, lista_nueva=[]):
@@ -137,7 +174,7 @@ def juego(turno, lista_nueva=[]):
      
 
     if turno == 0:
-
+        #Turno del jugador
         elección1 = input("Escoja la comunidad en la que quiere\nejecutar el proyecto (solo el número): ")
         if verificar_elegir1(lista,elección1) == False: #elige comunidad y revisa que exista
             print("Error 1: Esa no es una comunidad")
@@ -161,7 +198,7 @@ def juego(turno, lista_nueva=[]):
 
         comunidades_tras_suma = imprimir_valores_aux(lista_nueva, "", []) #Ordena las comunidades en una string
         print(comunidades_tras_suma)
-        turno = 1
+        turno = 1 #Al cambiar el turno, sigue las mineras y misioneros
 
     if turno == 1:
         misioneros_o_mineras = random.randint(1,2) #escoge qué valor bajar
@@ -171,15 +208,15 @@ def juego(turno, lista_nueva=[]):
             print("\nLas mineras bajaron la autonomía de una comunidad\n")
 
         lista_bajada = restar_valores_aux(lista_nueva,misioneros_o_mineras) #baja el valor de una comunidad
-        comunidades_tras_bajada = imprimir_valores_aux(lista_bajada, "", [])
-        print(comunidades_tras_bajada)
         
         lista_final = verificar_valores(lista_bajada, [])
+        comunidades_tras_bajada = imprimir_valores_aux(lista_final, "", [])
+        print(comunidades_tras_bajada)
+
         if lista_final != False:
-            return juego(0,lista_final)
+            return juego(0,lista_final) #Vuelve al turno del jugador si alguna comunidad sigue existiendo
         else:
-            print("Fin del juego")
-            return finalizar()
+            return finalizar()  #Si no quedan comunidades, se acaba
 
 
 
