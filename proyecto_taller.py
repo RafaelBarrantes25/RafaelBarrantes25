@@ -178,7 +178,7 @@ def juego(turno, lista_nueva=[]):
         numero = random.randint(3,5) #Número aleatorio, define el número de comunidades
         lista = generar_comunidades_aux(numero, extra=1) #devuelve una lista con las comunidades
         comunidades_ordenadas = imprimir_valores_aux(lista, "", []) #Ordena las comunidades en una string
-        print(f"\n La lista de comunidades actual es:\n{comunidades_ordenadas}\n")
+        print(f"\nLa lista de comunidades actual es:\n{comunidades_ordenadas}\n")
     else:
         lista = lista_nueva
         numero = 0
