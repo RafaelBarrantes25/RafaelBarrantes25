@@ -18,6 +18,12 @@ def crear_comunidad(extra):
 
 
 def generar_comunidades_aux(numero, lista=[], extra=1):
+    """
+    Mete en una lista las comunidades generadas
+    E: número de comunidades
+    S: lista de comunidades
+    R: ninguna
+    """
     if extra == 0:
         extra = 0
     if numero == 0:
@@ -32,7 +38,10 @@ def generar_comunidades_aux(numero, lista=[], extra=1):
 
 def imprimir_valores_aux(lista, respuesta, lista2):
     """
-    
+    Acomoda los valores de la lista para imprimirlos
+    E: lista de comunidades
+    S: string con los valores acomodados
+    R: ninguna
     """
     if len(lista) == 0:
         return respuesta
