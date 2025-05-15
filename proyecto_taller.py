@@ -1,5 +1,5 @@
 import random
-
+import time
 
 def crear_comunidad(extra):
     """
@@ -43,7 +43,9 @@ def imprimir_valores_aux(lista, respuesta, lista2):
     S: string con los valores acomodados
     R: ninguna
     """
-    if len(lista) == 0:
+    if type(lista) != list:
+        return False
+    elif len(lista) == 0:
         return respuesta
     else:
         return imprimir_valores_aux(lista[1:], respuesta+str(lista[0][0])+": "+"Acervo: "+str(lista[0][1])+" "+"Autonomía: "+str(lista[0][2])+"\n", lista2+[lista[0]])
@@ -211,6 +213,7 @@ def juego(turno, lista_nueva=[]):
 
     if turno == 1:
         misioneros_o_mineras = random.randint(1,2) #escoge qué valor bajar
+        time.sleep(2)
         if misioneros_o_mineras == 1:
             print("\nLos misioneros bajaron el acervo cultural de una comunidad\n")
         else:
@@ -220,9 +223,10 @@ def juego(turno, lista_nueva=[]):
         
         lista_final = verificar_valores(lista_bajada, [])
         comunidades_tras_bajada = imprimir_valores_aux(lista_final, "", [])
-        print(comunidades_tras_bajada)
+
 
         if lista_final != False:
+            print(comunidades_tras_bajada)
             return juego(0,lista_final) #Vuelve al turno del jugador si alguna comunidad sigue existiendo
         else:
             return finalizar()  #Si no quedan comunidades, se acaba
