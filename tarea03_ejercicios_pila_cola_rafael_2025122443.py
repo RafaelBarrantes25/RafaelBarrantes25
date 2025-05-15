@@ -1317,6 +1317,7 @@ def eliminar_final_cola_aux(indice, texto, respuesta):
         return eliminar_final_cola_aux(indice - 1, texto[1:], respuesta + texto[0])
 
 
+
 def juntar_asteriscos(número, respuesta):
     # Función auxiliar, devuelve str con el número de asteriscos
     if número == 0:
