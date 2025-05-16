@@ -1,5 +1,5 @@
 import random
-import time
+import time #para un time.sleep(3) cuando se imprimen las comunidades con valores restados
 
 def crear_comunidad(extra):
     """
@@ -138,7 +138,8 @@ def verificar_elegir2(elección2):
 
 def sumar_valores(lista, comunidad_elegida, elección2,lista_nueva=[]):
     """
-    Le suma el valor de acervo o autonomía a la comunidad elegida, aleatorio en rango de 1 a 3
+    Le suma el valor de acervo o autonomía a la comunidad elegida, 
+    aleatorio en rango de 1 a 3
     E: lista de comunidades, comunidad elegida, elección de acervo o autonomía
     S: lista de comunidades con el valor sumado
     R: ninguna
