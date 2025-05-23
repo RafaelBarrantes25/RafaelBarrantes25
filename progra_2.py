@@ -16,7 +16,6 @@ def crear_matriz(largo, alto):
     return lista
 
 
-
 def imprimir_tablero(matriz):
     """
     Imprime el tablero
@@ -26,7 +25,7 @@ def imprimir_tablero(matriz):
     """
     if type(matriz) != list:
         return False
-    
+
     i = 0
     j = 0
     n = len(matriz)
@@ -40,6 +39,32 @@ def imprimir_tablero(matriz):
         i += 1
         print("")
 
+
+def verificar_numéricos(elección):
+    """
+    verifica que un string contenga únicamente números
+    E: string
+    S: True o False
+    R: no deberían haber
+    """
+    texto = elección
+    while len(texto) > 0:
+
+        if texto[0] != "0" and texto[0] != "1" and texto[0] != "2" and texto[0] != "3" and texto[0] != "4" and texto[0] != "5" and texto[0] != "6" and texto[0] != "7" and texto[0] != "8" and texto[0] != "9":
+            return False
+        else:
+            texto = texto[1:]
+    return True
+
+
+
+def verificar_elecciones(elección):
+    """
+    verifica que las elecciones que hizo sean válidas
+    """
+    pass
+
+
 def iniciar(turno):
     """
     Inicia el juego
@@ -47,10 +72,11 @@ def iniciar(turno):
     S: inicia el juego
     R: ninguna
     """
-    
-    #Poner inputs para que el usuario escoja el tamaño del
-    #tablero y validarlos
-    tablero = crear_matriz(8,8)
+
+    largo = input("¿Cuál será el largo del tablero? (Número entre 5 y 25):\n")
+    alto = input("¿Cuál será el alto del tablero? (Número entre 5 y 25):\n")
+    tablero = crear_matriz(largo, alto)
     imprimir_tablero(tablero)
+
 
 iniciar(0)
