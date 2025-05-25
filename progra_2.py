@@ -10,7 +10,7 @@ def crear_matriz(largo, alto):
     contador_filas = 0
     lista = []
 
-    while contador_filas < largo:
+    while contador_filas < alto:
         lista += [["▢"]*largo]
         contador_filas += 1
     return lista
@@ -62,21 +62,41 @@ def verificar_elecciones(elección):
     """
     verifica que las elecciones que hizo sean válidas
     """
-    pass
+    if elección < 5 or elección > 25:
+        return False
+    else:
+        return True
 
 
-def iniciar(turno):
+def iniciar(turno,tablero_nuevo=[]):
     """
     Inicia el juego
     E: el turno
     S: inicia el juego
     R: ninguna
     """
+    turno = 0
+    tablero = tablero_nuevo
 
-    largo = input("¿Cuál será el largo del tablero? (Número entre 5 y 25):\n")
-    alto = input("¿Cuál será el alto del tablero? (Número entre 5 y 25):\n")
-    tablero = crear_matriz(largo, alto)
-    imprimir_tablero(tablero)
+    if tablero == tablero_nuevo:
+        largo = input("¿Cuál será el largo del tablero? (Número entre 5 y 25):\n")
+        alto = input("¿Cuál será el alto del tablero? (Número entre 5 y 25):\n")
+
+        if verificar_numéricos(largo) and verificar_numéricos(alto):
+            largo = int(largo)
+            alto = int(alto)
+        else:
+            print("Eso no es un número")
+            return iniciar(0)
+        
+        if verificar_elecciones(largo) == False or verificar_elecciones(alto) == False:
+            print("El número debe estar entre 5 y 25")
+            return iniciar(0)
+        else:
+            tablero = crear_matriz(largo,alto)
+            imprimir_tablero(tablero)
+
+
 
 
 iniciar(0)
