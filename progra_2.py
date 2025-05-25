@@ -1,3 +1,6 @@
+import random
+import time
+
 def crear_matriz(largo, alto):
     """
     Crea una matriz vacía según el largo y alto
@@ -47,6 +50,8 @@ def verificar_numéricos(elección):
     S: True o False
     R: no deberían haber
     """
+    if elección == "":
+        return False
     texto = elección
     while len(texto) > 0:
 
@@ -56,6 +61,12 @@ def verificar_numéricos(elección):
             texto = texto[1:]
     return True
 
+
+
+def avanzar_tablero(tablero,posiciones,actual):
+    """
+    Avanza al jugador en el tablero
+    """
 
 
 def verificar_elecciones(elección):
@@ -95,7 +106,32 @@ def iniciar(turno,tablero_nuevo=[]):
         else:
             tablero = crear_matriz(largo,alto)
             imprimir_tablero(tablero)
+            posición_jugador = 0
+            posición_enemigo = 0
+    if turno == 0:
+        input("Presione enter para lanzar los dados")
+        posiciones = random.randint(1,4)
+        proyectos = random.randint(1,4)
+        eficacia = random.randint(1,4)
+        posiciones_finales = 0
+        time.sleep(1.5)
+        print("Va a avanzar "+str(posiciones)+ " casillas")
+        time.sleep(1.5)
+        if proyectos == 1:
+            print("Está intentando ejecutar "+str(proyectos)+" proyecto")
+        else:
+            print("Está intentando ejecutar "+str(proyectos)+" proyectos")
+        time.sleep(1.5)
+        if eficacia %2 == 0:
+            print("Los proyectos fueron exitosos, se va a mover "+str(eficacia)+" casillas extra y los fascistas van a retroceder")
+            posiciones_finales = posiciones+proyectos
+        else:
+            print("Los proyectos fracasaron, no hay bonificaciones")
+            posiciones_finales = posiciones
 
+        última_fila = len(tablero)-1
+
+        
 
 
 
