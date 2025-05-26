@@ -63,10 +63,19 @@ def verificar_numéricos(elección):
 
 
 
-def avanzar_tablero(tablero,posiciones,actual):
+def avanzar_tablero(tablero,posición_jugador,posición_enemigo,avanzar):
     """
     Avanza al jugador en el tablero
     """
+    i = 0
+    j = 0
+    filas = len(tablero)
+    columnas = len(tablero[0])
+    matriz_n = []
+    fila = []
+    
+       
+
 
 
 def verificar_elecciones(elección):
@@ -106,7 +115,7 @@ def iniciar(turno,tablero_nuevo=[]):
         else:
             tablero = crear_matriz(largo,alto)
             imprimir_tablero(tablero)
-            posición_jugador = 0
+            posición_jugador = tablero[len(tablero)-1][len(tablero[0])] 
             posición_enemigo = 0
     if turno == 0:
         input("Presione enter para lanzar los dados")
@@ -128,9 +137,9 @@ def iniciar(turno,tablero_nuevo=[]):
         else:
             print("Los proyectos fracasaron, no hay bonificaciones")
             posiciones_finales = posiciones
-
-        última_fila = len(tablero)-1
-
+        
+        tablero_2 = avanzar_tablero(tablero,posición_jugador,posición_enemigo,posiciones_finales)
+        print(tablero_2)
         
 
 
