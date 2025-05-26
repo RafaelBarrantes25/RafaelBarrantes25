@@ -17,11 +17,31 @@ def crear_matriz(largo, alto):
         while contador_columnas < largo:
             lista += [número]
             número += 1
-            contador_columnas+=1
+            contador_columnas += 1
         tablero += [lista]
         contador_columnas = 0
         contador_filas += 1
     return tablero
+
+
+def invertir_tablero(tablero):
+    """
+    invierte el orden de las listas, así se ve como debería
+    E: el tablero
+    S: el tablero con las listas invertidas
+    R: no
+    """
+    tablero_nuevo = []
+    número = len(tablero)-1
+    fila = []
+    while len(tablero_nuevo) != len(tablero):
+        while número > -1:
+            tablero_nuevo += [tablero[número]]
+            número -= 1
+    return tablero_nuevo
+
+
+
 
 
 def imprimir_tablero(matriz):
@@ -41,10 +61,16 @@ def imprimir_tablero(matriz):
 
     while i < n:
         while j < m:
-            print(matriz[i][j], end=" ")
+            if matriz[i][j] < 10:
+                print(matriz[i][j], end="  ")
+            else:    
+                print(matriz[i][j], end=" ")
             j += 1
         j = 0
         i += 1
         print("")
 
-imprimir_tablero(crear_matriz(7,7))
+# imprimir_tablero(crear_matriz(7,7))
+lista = crear_matriz(7,7)
+lista_inv = invertir_tablero(lista)
+imprimir_tablero(lista_inv)
