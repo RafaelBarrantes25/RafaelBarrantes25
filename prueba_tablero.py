@@ -70,7 +70,6 @@ def imprimir_tablero(matriz):
         i += 1
         print("")
 
-# imprimir_tablero(crear_matriz(7,7))
 lista = crear_matriz(7,7)
 lista_inv = invertir_tablero(lista)
 imprimir_tablero(lista_inv)
