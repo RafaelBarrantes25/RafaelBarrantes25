@@ -41,9 +41,6 @@ def invertir_tablero(tablero):
     return tablero_nuevo
 
 
-
-
-
 def imprimir_tablero(matriz):
     """
     Imprime el tablero
@@ -63,13 +60,15 @@ def imprimir_tablero(matriz):
         while j < m:
             if matriz[i][j] < 10:
                 print(matriz[i][j], end="  ")
-            else:    
+            else:
                 print(matriz[i][j], end=" ")
+
             j += 1
         j = 0
         i += 1
-        print("")
+        print()
 
-lista = crear_matriz(7,7)
+
+lista = crear_matriz(7, 7)
 lista_inv = invertir_tablero(lista)
 imprimir_tablero(lista_inv)

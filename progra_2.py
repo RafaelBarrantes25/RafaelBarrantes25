@@ -12,11 +12,35 @@ def crear_matriz(largo, alto):
         return False
     contador_filas = 0
     lista = []
-
+    tablero = []
+    número = 1
+    contador_columnas = 0
     while contador_filas < alto:
-        lista += [["▢"]*largo]
+        lista = []
+        while contador_columnas < largo:
+            lista += [número]
+            número += 1
+            contador_columnas += 1
+        tablero += [lista]
+        contador_columnas = 0
         contador_filas += 1
-    return lista
+    return tablero
+
+
+def invertir_tablero(tablero):
+    """
+    invierte el orden de las listas, así se ve como debería
+    E: el tablero
+    S: el tablero con las listas invertidas
+    R: no
+    """
+    tablero_nuevo = []
+    número = len(tablero)-1
+    while len(tablero_nuevo) != len(tablero):
+        while número > -1:
+            tablero_nuevo += [tablero[número]]
+            número -= 1
+    return tablero_nuevo
 
 
 def imprimir_tablero(matriz):
@@ -33,6 +57,18 @@ def imprimir_tablero(matriz):
     j = 0
     n = len(matriz)
     m = len(matriz[0])
+
+    while i < n:
+        while j < m:
+            if matriz[i][j] < 10:
+                print(matriz[i][j], end="  ")
+            else:
+                print(matriz[i][j], end=" ")
+
+            j += 1
+        j = 0
+        i += 1
+        print()
 
     while i < n:
         while j < m:
@@ -63,7 +99,7 @@ def verificar_numéricos(elección):
 
 
 
-def avanzar_tablero(tablero,posición_jugador,posición_enemigo,avanzar):
+def avanzar_tablero(tablero,posición_jugador,posición_enemigo,tablero_final):
     """
     Avanza al jugador en el tablero
     """
@@ -71,9 +107,13 @@ def avanzar_tablero(tablero,posición_jugador,posición_enemigo,avanzar):
     j = 0
     filas = len(tablero)
     columnas = len(tablero[0])
-    matriz_n = []
     fila = []
-    
+
+    while i < filas:
+        while j < columnas:
+            if tablero[i][j] == posición_jugador:
+                fila += [tablero[i][0:j] + "o" + tablero[i][j:]]
+    print(fila)
        
 
 
@@ -114,9 +154,9 @@ def iniciar(turno,tablero_nuevo=[]):
             return iniciar(0)
         else:
             tablero = crear_matriz(largo,alto)
-            imprimir_tablero(tablero)
-            posición_jugador = tablero[len(tablero)-1][len(tablero[0])] 
-            posición_enemigo = 0
+            imprimir_tablero(invertir_tablero(tablero))
+            posición_jugador = -1
+            posición_enemigo = -1
     if turno == 0:
         input("Presione enter para lanzar los dados")
         posiciones = random.randint(1,4)
@@ -133,12 +173,12 @@ def iniciar(turno,tablero_nuevo=[]):
         time.sleep(1.5)
         if eficacia %2 == 0:
             print("Los proyectos fueron exitosos, se va a mover "+str(eficacia)+" casillas extra y los fascistas van a retroceder")
-            posiciones_finales = posiciones+proyectos
+            posición_jugador += posiciones+proyectos
         else:
             print("Los proyectos fracasaron, no hay bonificaciones")
-            posiciones_finales = posiciones
+            posición_jugador += posiciones
         
-        tablero_2 = avanzar_tablero(tablero,posición_jugador,posición_enemigo,posiciones_finales)
+        tablero_2 = avanzar_tablero(tablero,posición_jugador,posición_enemigo,tablero_final=[])
         print(tablero_2)
         
 
