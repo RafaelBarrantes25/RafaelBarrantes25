@@ -1,6 +1,7 @@
 import random
 import time
 
+
 def crear_matriz(largo, alto):
     """
     Crea una matriz vacía según el largo y alto
@@ -98,7 +99,6 @@ def verificar_numéricos(elección):
     return True
 
 
-
 def avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final):
     """
     Avanza al jugador en el tablero
@@ -126,8 +126,6 @@ def avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final
         i += 1
 
     return tablero_final
-       
-
 
 
 def verificar_elecciones(elección):
@@ -140,7 +138,7 @@ def verificar_elecciones(elección):
         return True
 
 
-def iniciar(turno,tablero_nuevo=[],posición_jugador=0,posición_enemigo=0,tablero=[]):
+def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[]):
     """
     Inicia el juego
     E: el turno
@@ -152,8 +150,10 @@ def iniciar(turno,tablero_nuevo=[],posición_jugador=0,posición_enemigo=0,table
         tablero = tablero_nuevo
 
         if tablero == tablero_nuevo:
-            largo = input("¿Cuál será el largo del tablero? (Número entre 5 y 25):\n")
-            alto = input("¿Cuál será el alto del tablero? (Número entre 5 y 25):\n")
+            largo = input(
+                "¿Cuál será el largo del tablero? (Número entre 5 y 25):\n")
+            alto = input(
+                "¿Cuál será el alto del tablero? (Número entre 5 y 25):\n")
 
             if verificar_numéricos(largo) and verificar_numéricos(alto):
                 largo = int(largo)
@@ -161,26 +161,25 @@ def iniciar(turno,tablero_nuevo=[],posición_jugador=0,posición_enemigo=0,table
             else:
                 print("Eso no es un número")
                 return iniciar(0)
-            
+
             if verificar_elecciones(largo) == False or verificar_elecciones(alto) == False:
                 print("El número debe estar entre 5 y 25")
                 return iniciar(0)
             else:
-                tablero = crear_matriz(largo,alto)
+                tablero = crear_matriz(largo, alto)
                 imprimir_tablero(invertir_tablero(tablero))
                 posición_jugador = 0
                 posición_enemigo = 0
     turno = 1
 
-
     if turno == 1:
         input("Presione enter para lanzar los dados")
-        posiciones = random.randint(1,4)
-        proyectos = random.randint(1,4)
-        eficacia = random.randint(1,4)
+        posiciones = random.randint(1, 4)
+        proyectos = random.randint(1, 4)
+        eficacia = random.randint(1, 4)
 
         time.sleep(1.5)
-        print("Va a avanzar "+str(posiciones)+ " casillas")
+        print("Va a avanzar "+str(posiciones) + " casillas")
         time.sleep(1.5)
         if proyectos == 1:
             print("Está intentando ejecutar "+str(proyectos)+" proyecto")
@@ -188,20 +187,49 @@ def iniciar(turno,tablero_nuevo=[],posición_jugador=0,posición_enemigo=0,table
             print("Está intentando ejecutar "+str(proyectos)+" proyectos")
 
         time.sleep(1.5)
-        if eficacia %2 == 0:
-            print("Los proyectos fueron exitosos, se va a mover "+str(proyectos)+" casillas extra y los fascistas van a retroceder")
+        if eficacia % 2 == 0:
+            print("Los proyectos fueron exitosos, se va a mover " +
+                  str(proyectos)+" casillas extra y los fascistas van a retroceder")
             posición_jugador += posiciones+proyectos
+            posición_enemigo -= proyectos
         else:
             print("Los proyectos fracasaron, no hay bonificaciones")
             posición_jugador += posiciones
-        time.sleep(1.5)  
-        tablero_2 = avanzar_tablero(tablero,posición_jugador,posición_enemigo,tablero_final=[])
+        time.sleep(1.5)
+        tablero_2 = avanzar_tablero(
+            tablero, posición_jugador, posición_enemigo, tablero_final=[])
         imprimir_tablero(invertir_tablero(tablero_2))
-        
-        return iniciar(1,tablero_2,posición_jugador,posición_enemigo,tablero)
 
-        
+        return iniciar(2, tablero_2, posición_jugador, posición_enemigo, tablero)
 
+    if turno == 2:
+        input("Presione enter para el turno de los fascistas")
+        posiciones_f = random.randint(1, 4)
+        proyectos_f = random.randint(1, 4)
+        eficacia_f = random.randint(1, 4)
+
+        time.sleep(1.5)
+        print("Va a avanzar "+str(posiciones_f) + " casillas")
+        time.sleep(1.5)
+        if proyectos_f == 1:
+            print("Está intentando ejecutar "+str(proyectos_f)+" proyecto")
+        else:
+            print("Está intentando ejecutar "+str(proyectos_f)+" proyectos")
+
+        time.sleep(1.5)
+        if eficacia_f % 2 == 0:
+            print("Los proyectos fueron exitosos, se va a mover " +
+                  str(proyectos_f)+" casillas extra y los anarquistas van a retroceder")
+            posición_enemigo += posiciones+proyectos
+        else:
+            print("Los proyectos fracasaron, no hay bonificaciones")
+            posición_enemigo += posiciones
+        time.sleep(1.5)
+        tablero_3 = avanzar_tablero(
+            tablero, posición_jugador, posición_enemigo, tablero_final=[])
+        imprimir_tablero(invertir_tablero(tablero_2))
+
+        return iniciar(1, tablero_3, posición_jugador, posición_enemigo, tablero)
 
 
 iniciar(0)
