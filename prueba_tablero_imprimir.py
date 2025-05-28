@@ -61,10 +61,10 @@ def imprimir_tablero(matriz):
 
     while i < n:
         while j < m:
-            if type(matriz[i][j]) == str or matriz[i][j] < 10:
-                print(matriz[i][j], end="  ")
-            else:
+            if type(matriz[i][j]) == str:
                 print(matriz[i][j], end=" ")
+            else:
+                print("▢", end=" ")
 
             j += 1
         j = 0
@@ -196,6 +196,11 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
             print("Los proyectos fracasaron, no hay bonificaciones")
             posición_jugador += posiciones
         
+        if posición_jugador < 0:
+            posición_jugador = 0
+        if posición_enemigo < 0:
+            posición_enemigo = 0
+
         time.sleep(1.5)
         tablero_2 = avanzar_tablero(
             tablero, posición_jugador, posición_enemigo, tablero_final=[])
@@ -225,6 +230,13 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
         else:
             print("Los proyectos fracasaron, no hay bonificaciones")
             posición_enemigo += posiciones
+
+        if posición_jugador < 0:
+            posición_jugador = 0
+        if posición_enemigo < 0:
+            posición_enemigo = 0
+
+            
         time.sleep(1.5)
         tablero_3 = avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final=[])
         imprimir_tablero(invertir_tablero(tablero_3))
