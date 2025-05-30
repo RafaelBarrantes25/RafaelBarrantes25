@@ -113,7 +113,7 @@ def verificar_elegir1(lista,elección):
     """
     if lista == []:
         return False
-    elif lista[0][0][10:11] == elección:
+    elif lista[0][0][10:] == elección:
         return elección
     else:
         return verificar_elegir1(lista[1:],elección)
