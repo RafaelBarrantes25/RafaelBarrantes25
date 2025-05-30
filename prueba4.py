@@ -22,7 +22,6 @@ def verificar_ordenados(lista):
 
 def búsqueda_binaria(lista,número):
 
-
     max = len(lista)-1
     min = 0
 

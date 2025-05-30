@@ -142,7 +142,7 @@ def verificar_elecciones(elección):
 
 
 
-def escaleras(tablero,alto,largo):
+def escaleras(alto,largo):
     """
     Crea la lista de escaleras
     E: tablero
@@ -151,12 +151,21 @@ def escaleras(tablero,alto,largo):
     """
     número = abs(0.05*(largo*alto))
     lista = []
+    lista2 = []
     while número > 0:
-        lista += [random.randint(largo,largo*alto)]
+        lista += [random.randint(largo,(largo*alto)-largo*2)]
         número-=1
-    return lista
     
-print(escaleras(1,10,10))
+    número = 0
+
+    while len(lista2) < len(lista):
+        lista2 += [lista[número]+random.randint(largo,largo*2)]
+        número += 1
+
+    print(lista)
+    print(lista2)
+
+escaleras(10,10)    
 
 
 def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[]):
