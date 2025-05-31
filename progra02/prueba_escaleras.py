@@ -162,8 +162,9 @@ def escaleras(alto,largo):
         lista2 += [lista[número]+random.randint(largo,largo*2)]
         número += 1
 
-    print(lista)
-    print(lista2)
+    
+    
+
 
 escaleras(10,10)    
 
