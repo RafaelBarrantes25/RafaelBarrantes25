@@ -261,7 +261,7 @@ def verificar_elecciones(elección):
     """
     verifica que las elecciones que hizo sean válidas
     """
-    if elección < 5 or elección > 15:
+    if elección < 10 or elección > 15:
         return False
     else:
         return True
@@ -331,7 +331,14 @@ def verificar_eventos_inicio(eventos_inicio, eventos_final,serpientes_inicio,ser
     return eventos_inicio
 
 
-def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[], escaleras_inicio_finales=[], escaleras_final=[],serpientes_inicio=[],serpientes_final=[]):
+
+def ganar_anarquistas():
+    print("Ganaron los anarquistas")
+
+def ganar_fascistas():
+    print("Ganaron los fascistas")
+
+def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[], escaleras_inicio_finales=[], escaleras_final=[],serpientes_inicio=[],serpientes_final=[],tamaño=0):
     """
     Inicia el juego
     E: el turno
@@ -344,9 +351,9 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
 
         if tablero == tablero_nuevo:
             largo = input(
-                "¿Cuál será el largo del tablero? (Número entre 5 y 15):\n")
+                "¿Cuál será el largo del tablero? (Número entre 10 y 15):\n")
             alto = input(
-                "¿Cuál será el alto del tablero? (Número entre 5 y 15):\n")
+                "¿Cuál será el alto del tablero? (Número entre 10 y 15):\n")
 
             if verificar_numéricos(largo) and verificar_numéricos(alto):
                 largo = int(largo)
@@ -364,6 +371,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 posición_jugador = 0
                 posición_enemigo = 0
 
+        tamaño = largo*alto
 
         escaleras_inicio = escaleras(largo, alto)
         escaleras_final = escaleras_llegada(escaleras_inicio, largo)
@@ -478,6 +486,15 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
             else:
                 revisión += 1
 
+
+        if posición_jugador >= tamaño:
+            posición_jugador = tamaño
+            tablero_2 = avanzar_tablero(
+            tablero, posición_jugador, posición_enemigo, tablero_final=[])
+            imprimir_tablero(invertir_tablero(tablero_2))
+            return ganar_anarquistas()
+
+
         tablero_2 = avanzar_tablero(
             tablero, posición_jugador, posición_enemigo, tablero_final=[])
         imprimir_tablero(invertir_tablero(tablero_2))
@@ -556,11 +573,18 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
             else:
                 revisión += 1
 
+        if posición_enemigo >= tamaño:
+            posición_enemigo = tamaño
+            tablero_3 = avanzar_tablero(
+            tablero, posición_jugador, posición_enemigo, tablero_final=[])
+            imprimir_tablero(invertir_tablero(tablero_3))
+            return ganar_fascistas()
+
         tablero_3 = avanzar_tablero(
             tablero, posición_jugador, posición_enemigo, tablero_final=[])
         imprimir_tablero(invertir_tablero(tablero_3))
 
-        return iniciar(1, tablero_3, posición_jugador, posición_enemigo, tablero, escaleras_inicio_finales, escaleras_final,serpientes_inicio,serpientes_final)
+        return iniciar(1, tablero_3, posición_jugador, posición_enemigo, tablero, escaleras_inicio_finales, escaleras_final,serpientes_inicio,serpientes_final,tamaño)
 
 
 iniciar(0)
