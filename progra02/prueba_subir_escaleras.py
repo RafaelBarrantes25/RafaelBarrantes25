@@ -1,4 +1,5 @@
 import random
+import time
 
 
 def crear_matriz(largo, alto):
@@ -137,7 +138,9 @@ def añadir_escaleras(tablero, escal, escal_fin, número):
     j = 0
     n = len(tablero)
     m = len(tablero)
-    
+
+    cuadritos = ["🟥", "🟧", "🟨", "🟩", "🟦", "🟪", "🟫", "⬛", "⬜", "🔳", "🔲", "🆗"]
+
     while i < n:
         fila = []
         while j < m:
@@ -145,10 +148,10 @@ def añadir_escaleras(tablero, escal, escal_fin, número):
                 fila += [tablero[i][j]]
                 j += 1
             elif tablero[i][j] == escal[número]:
-                fila += [str(número)+"/"]
+                fila += [cuadritos[número]]
                 j += 1
             elif tablero[i][j] == escal_fin[número]:
-                fila += [str(número)+"|"]
+                fila += [cuadritos[número]]
                 j += 1
             else:
                 fila += [tablero[i][j]]
@@ -179,7 +182,7 @@ def avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final
             elif tablero[i][j] == posición_enemigo:
                 fila += ["XX"]
                 j += 1
-                
+
             else:
                 fila += [tablero[i][j]]
                 j += 1
@@ -200,7 +203,43 @@ def verificar_elecciones(elección):
         return True
 
 
-def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[],escaleras_inicio=[],escaleras_final=[]):
+def verificar_eventos_inicio(eventos_inicio, eventos_final):
+    """
+    Verifica que los eventos generados no tengan duplicados
+    E: la lista de eventos
+    S: nueva lista eliminando duplicados
+    R: no
+    """
+    número = 0
+    número2 = 1
+
+    while número < len(eventos_inicio)-1:
+
+        while número2 < len(eventos_inicio)-1:
+            if eventos_inicio[número] == eventos_inicio[número2]:
+                eventos_inicio[número] += 2
+                número2 += 1
+            else:
+                número2 += 1
+        número += 1
+
+    número = 0
+    número2 = 0
+
+    while número < len(eventos_inicio)-1:
+
+        while número2 < len(eventos_inicio)-1:
+            if eventos_inicio[número] == eventos_final[número2]:
+                eventos_inicio[número] += 2
+                número2 += 1
+            else:
+                número2 += 1
+        número += 1
+
+    return eventos_inicio
+
+
+def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[], escaleras_inicio=[], escaleras_final=[]):
     """
     Inicia el juego
     E: el turno
@@ -229,28 +268,30 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 return iniciar(0)
             else:
                 tablero = crear_matriz(largo, alto)
-                
+
                 posición_jugador = 0
                 posición_enemigo = 0
 
         escaleras_inicio = escaleras(largo, alto)
         escaleras_final = escaleras_llegada(escaleras_inicio, largo)
-                #Pone las escaleras
+
+        tres_verificaciones = 0
+        while tres_verificaciones != 3:
+
+            escaleras_inicio_finales = verificar_eventos_inicio(
+                escaleras_inicio, escaleras_final)
+            tres_verificaciones += 1
+
+            # Pone las escaleras
         número = 0
         tablero4 = []
-        while número < len(escaleras_inicio):
+        while número < len(escaleras_inicio_finales):
             tablero4 = añadir_escaleras(
-                tablero, escaleras_inicio, escaleras_final, número)
+                tablero, escaleras_inicio_finales, escaleras_final, número)
             número += 1
             tablero = tablero4
 
         imprimir_tablero(invertir_tablero(tablero))
-            
-
-
-
-
-
 
     turno = 1
 
@@ -260,8 +301,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
         proyectos = random.randint(1, 4)
         eficacia = random.randint(1, 4)
 
-        #Calcula lo que va a avanzar
-
+        # Calcula lo que va a avanzar
 
         print("Va a avanzar "+str(posiciones) + " casillas")
 
@@ -270,7 +310,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
         else:
             print("Está intentando ejecutar "+str(proyectos)+" proyectos")
 
-        #Comprueba si los proyectos fracasan o no
+        # Comprueba si los proyectos fracasan o no
         if eficacia % 2 == 0:
             print("Los proyectos fueron exitosos, se va a mover " +
                   str(proyectos)+" casillas extra y los fascistas van a retroceder")
@@ -281,7 +321,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
             print("Los proyectos fracasaron, no hay bonificaciones")
             posición_jugador += posiciones
 
-        #Para que la posición no se vaya a números negativos
+        # Para que la posición no se vaya a números negativos
         if posición_jugador < 0:
             posición_jugador = 0
         if posición_enemigo < 0:
@@ -291,38 +331,32 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
             print("Retrocede un espacio.")
             posición_jugador -= 1
 
-
-
-
-
-
-        #comprueba si cayó en una casilla de escaleras o no y lo avanza si sí
+        # comprueba si cayó en una casilla de escaleras o no y lo avanza si sí
 
         revisión = 0
 
         while revisión < len(escaleras_inicio)-1:
-            
+
             if posición_jugador == escaleras_inicio[revisión]:
-                posición_jugador = escaleras_final[revisión]
+                print("Cayó en una escalera")
+                print("Va a subir a la parte de arriba")
+                posición_jugador -= 1
+                tablero_2 = avanzar_tablero(
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[])
+                imprimir_tablero(invertir_tablero(tablero_2))
+                print("")
+                print("")
+                time.sleep(1)
+                posición_jugador = escaleras_final[revisión]+1
+                time.sleep(1)
             else:
                 revisión += 1
-
-
 
         tablero_2 = avanzar_tablero(
             tablero, posición_jugador, posición_enemigo, tablero_final=[])
         imprimir_tablero(invertir_tablero(tablero_2))
 
         turno = 2
-
-
-
-
-
-
-
-
-
 
     while turno == 2:
         input("Presione enter para el turno de los fascistas")
@@ -355,11 +389,29 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
             print("Retroceden un espacio.")
             posición_enemigo -= 1
 
+        revisión = 0
+        while revisión < len(escaleras_inicio)-1:
+
+            if posición_enemigo == escaleras_inicio[revisión]:
+                print("Cayó en una escalera")
+                print("Va a subir a la parte de arriba")
+                posición_enemigo -= 1
+                tablero_2 = avanzar_tablero(
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[])
+                imprimir_tablero(invertir_tablero(tablero_2))
+                time.sleep(1)
+                print("")
+                print("")
+                posición_enemigo = escaleras_final[revisión]+1
+                time.sleep(1)
+            else:
+                revisión += 1
+
         tablero_3 = avanzar_tablero(
             tablero, posición_jugador, posición_enemigo, tablero_final=[])
         imprimir_tablero(invertir_tablero(tablero_3))
 
-        return iniciar(1, tablero_3, posición_jugador, posición_enemigo, tablero,escaleras_inicio,escaleras_final)
+        return iniciar(1, tablero_3, posición_jugador, posición_enemigo, tablero, escaleras_inicio, escaleras_final)
 
 
 iniciar(0)
