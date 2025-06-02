@@ -226,7 +226,7 @@ def añadir_serpientes(tablero, escal, escal_fin, número):
         i += 1
     return tablero_final
 
-def avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final):
+def avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final,tablero_vacío):
     """
     Avanza al jugador en el tablero
     """
@@ -240,10 +240,10 @@ def avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final
         fila = []
         while j < columnas:
 
-            if tablero[i][j] == posición_jugador:
+            if tablero_vacío[i][j] == posición_jugador:
                 fila += ["ⒶⒶ"]
                 j += 1
-            elif tablero[i][j] == posición_enemigo:
+            elif tablero_vacío[i][j] == posición_enemigo:
                 fila += ["XX"]
                 j += 1
 
@@ -338,7 +338,7 @@ def ganar_anarquistas():
 def ganar_fascistas():
     print("Ganaron los fascistas")
 
-def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[], escaleras_inicio_finales=[], escaleras_final=[],serpientes_inicio=[],serpientes_final=[],tamaño=0):
+def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[], escaleras_inicio_finales=[], escaleras_final=[],serpientes_inicio=[],serpientes_final=[],tamaño=0,tablero_vacío=[]):
     """
     Inicia el juego
     E: el turno
@@ -370,6 +370,8 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
 
                 posición_jugador = 0
                 posición_enemigo = 0
+
+        tablero_vacío = tablero #se usa para que se sobrepongan los jugadores y enemigos sobre los eventos
 
         tamaño = largo*alto
 
@@ -455,7 +457,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 print("Va a subir a la parte de arriba")
                 posición_jugador -= 1
                 tablero_2 = avanzar_tablero(
-                    tablero, posición_jugador, posición_enemigo, tablero_final=[])
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
                 imprimir_tablero(invertir_tablero(tablero_2))
                 print("")
                 print("")
@@ -476,7 +478,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 print("Va a bajar a la cola")
                 posición_jugador += 1
                 tablero_2 = avanzar_tablero(
-                    tablero, posición_jugador, posición_enemigo, tablero_final=[])
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
                 imprimir_tablero(invertir_tablero(tablero_2))
                 print("")
                 print("")
@@ -490,13 +492,13 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
         if posición_jugador >= tamaño:
             posición_jugador = tamaño
             tablero_2 = avanzar_tablero(
-            tablero, posición_jugador, posición_enemigo, tablero_final=[])
+            tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
             imprimir_tablero(invertir_tablero(tablero_2))
             return ganar_anarquistas()
 
 
         tablero_2 = avanzar_tablero(
-            tablero, posición_jugador, posición_enemigo, tablero_final=[])
+            tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
         imprimir_tablero(invertir_tablero(tablero_2))
 
         turno = 2
@@ -540,7 +542,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 print("Va a subir a la parte de arriba")
                 posición_enemigo -= 1
                 tablero_2 = avanzar_tablero(
-                    tablero, posición_jugador, posición_enemigo, tablero_final=[])
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
                 imprimir_tablero(invertir_tablero(tablero_2))
                 time.sleep(1)
                 print("")
@@ -563,7 +565,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 print("Va a bajar a la cola")
                 posición_jugador += 1
                 tablero_2 = avanzar_tablero(
-                    tablero, posición_enemigo, posición_enemigo, tablero_final=[])
+                    tablero, posición_enemigo, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
                 imprimir_tablero(invertir_tablero(tablero_2))
                 print("")
                 print("")
@@ -576,15 +578,15 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
         if posición_enemigo >= tamaño:
             posición_enemigo = tamaño
             tablero_3 = avanzar_tablero(
-            tablero, posición_jugador, posición_enemigo, tablero_final=[])
+            tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
             imprimir_tablero(invertir_tablero(tablero_3))
             return ganar_fascistas()
 
         tablero_3 = avanzar_tablero(
-            tablero, posición_jugador, posición_enemigo, tablero_final=[])
+            tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
         imprimir_tablero(invertir_tablero(tablero_3))
 
-        return iniciar(1, tablero_3, posición_jugador, posición_enemigo, tablero, escaleras_inicio_finales, escaleras_final,serpientes_inicio,serpientes_final,tamaño)
+        return iniciar(1, tablero_3, posición_jugador, posición_enemigo, tablero, escaleras_inicio_finales, escaleras_final,serpientes_inicio,serpientes_final,tamaño,tablero_vacío)
 
 
 iniciar(0)
