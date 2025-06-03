@@ -162,8 +162,6 @@ def añadir_escaleras(tablero, escal, escal_fin, número):
     return tablero_final
 
 
-
-
 def serpientes(alto, largo):
     """
     Crea la lista de serpientes
@@ -226,7 +224,8 @@ def añadir_serpientes(tablero, escal, escal_fin, número):
         i += 1
     return tablero_final
 
-def avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final,tablero_vacío):
+
+def avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final, tablero_vacío, posición_jugador_2, posición_enemigo_2):
     """
     Avanza al jugador en el tablero
     """
@@ -246,7 +245,12 @@ def avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final
             elif tablero_vacío[i][j] == posición_enemigo:
                 fila += ["XX"]
                 j += 1
-
+            elif tablero_vacío[i][j] == posición_jugador_2:
+                fila += ["A2"]
+                j += 1
+            elif tablero_vacío[i][j] == posición_enemigo_2:
+                fila += ["X2"]
+                j += 1
             else:
                 fila += [tablero[i][j]]
                 j += 1
@@ -267,7 +271,7 @@ def verificar_elecciones(elección):
         return True
 
 
-def verificar_eventos_inicio(eventos_inicio, eventos_final,serpientes_inicio,serpientes_final):
+def verificar_eventos_inicio(eventos_inicio, eventos_final, serpientes_inicio, serpientes_final):
     """
     Verifica que los eventos generados no tengan duplicados
     E: la lista de eventos
@@ -300,7 +304,6 @@ def verificar_eventos_inicio(eventos_inicio, eventos_final,serpientes_inicio,ser
                 número2 += 1
         número += 1
 
-
     número = 0
     número2 = 0
 
@@ -313,7 +316,6 @@ def verificar_eventos_inicio(eventos_inicio, eventos_final,serpientes_inicio,ser
             else:
                 número2 += 1
         número += 1
-
 
     número = 0
     número2 = 0
@@ -339,69 +341,79 @@ def menú():
     R: debe escoger la opción correcta
     """
 
-    print("Anarquistas VS Fascistas")
-
-    time.sleep(3)
-    print("")
-    print("Opciones:\n1. Iniciar juego\n2. Instrucciones\n3. Fuentes consultadas")
-    print("")
+    print("Anarquistas")
     time.sleep(1)
+    print("VS")
+    time.sleep(1)
+    print("Fascistas")
     while True:
+        time.sleep(3)
+        print("")
+        print("Opciones:\n1. Iniciar juego\n2. Instrucciones\n3. Fuentes consultadas")
+        print("")
+        time.sleep(1)
+
         elección = input("Escoja una opción: ")
         if elección == "1":
             return True
         if elección == "2":
-            print("El juego es una recreación del juego de" \
-            "mesa serpientes y escaleras.")
+            print("El juego es una recreación del juego de"
+                  "mesa serpientes y escaleras.")
             time.sleep(3)
-            print("FALTA ESCRIBIR LAS" \
-            "OPCUEOSNWF" \
-            "R" \
-            "TF4" \
-            "ER4G}FERG" \
-            "" \
-            "YRU" \
-            "R6U" \
-            "6TFF" \
-            "U" \
-            "6TI" \
-            "6TD" \
-            "8R" \
-            "7" \
-            "6" \
-            "F7" \
-            "R5" \
-            "U" \
-            "6TPO" \
-            "U" \
-            "YTR" \
-            "XYH" \
-            "" \
-            "C57U" \
-            "T6" \
-            "UJ" \
-            "XR" \
-            "6" \
-            "RXU" \
-            "")
+            print("Se lanzan 3 dados\nEl primero define cuántas casillas avanza.")
+            time.sleep(3)
+            print("El segundo define cuántos proyectos va a ejecutar.")
+            time.sleep(3)
+            print("El tercero define si los proyectos fueron exitosos.")
+            time.sleep(3)
+            print("La eficacia de los proyectos aumenta conforme se avanza con el juego.")
+            print("")
+            time.sleep(3)
+            print("Las casillas de escaleras están representadas con cuadritos de colores:")
+            print("")
+            print("🟥 🟧 🟨 🟩 🟦 🟪 🟫 ⬛ ⬜ 🔳 🔲 🆗")
+            time.sleep(3)
+            print("Cada color aparece 2 veces, al caer en el primer cuadro de un color,")
+            print("sube al segundo.")
+            time.sleep(3)
+            print("")
+            print("Las casillas de serpientes están representadas con círculos de colores:")
+            print("")
+            print("🔴 🟠 🟡 🟢 🔵 🟣 🟤 ⚫ ⚪ ⭕ ⛔ 🔘")
+            time.sleep(3)
+            print("Al igual que con las escaleras, aparece cada color 2 veces,")
+            print("pero solo se baja si cae en el segundo círculo de un color.")
+
+        if elección == "4":
+            print("Solo habían 3 opciones, no hay una opción secreta.")
+            time.sleep(3)
+            print("¿O sí?")
+
+            
 
 
 def ganar_anarquistas():
     print("Ganaron los anarquistas")
 
+
 def ganar_fascistas():
     print("Ganaron los fascistas")
 
-def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[], escaleras_inicio_finales=[], escaleras_final=[],serpientes_inicio=[],serpientes_final=[],tamaño=0,tablero_vacío=[]):
+
+def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, tablero=[], escaleras_inicio_finales=[], escaleras_final=[], serpientes_inicio=[], serpientes_final=[], tamaño=0, tablero_vacío=[], posición_jugador_2=0, posición_enemigo_2=0):
     """
     Inicia el juego
     E: el turno
     S: inicia el juego
     R: ninguna
     """
-    if turno == 0:
+    if menú():
         turno = 0
+    if turno == 0:
         tablero = tablero_nuevo
+
+        turno_final = 0 #Sirve para trucar los dados
+
 
         if tablero == tablero_nuevo:
             largo = input(
@@ -422,10 +434,8 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
             else:
                 tablero = crear_matriz(largo, alto)
 
-                posición_jugador = 0
-                posición_enemigo = 0
-
-        tablero_vacío = tablero #se usa para que se sobrepongan los jugadores y enemigos sobre los eventos
+        # se usa para que se sobrepongan los jugadores y enemigos sobre los eventos
+        tablero_vacío = tablero
 
         tamaño = largo*alto
 
@@ -439,7 +449,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
         while cinco_verificaciones != 5:
 
             escaleras_inicio_finales = verificar_eventos_inicio(
-                escaleras_inicio, escaleras_final,serpientes_inicio,serpientes_final)
+                escaleras_inicio, escaleras_final, serpientes_inicio, serpientes_final)
             cinco_verificaciones += 1
 
             # Pone las escaleras
@@ -451,7 +461,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
             número += 1
             tablero = tablero4
 
-        #pone las serpientes
+        # pone las serpientes
         número = 0
         tablero4 = []
         while número < len(serpientes_inicio):
@@ -513,7 +523,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 print("Va a subir a la parte de arriba")
                 time.sleep(1)
                 tablero_3 = avanzar_tablero(
-                tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
                 imprimir_tablero(invertir_tablero(tablero_3))
                 print("")
                 print("")
@@ -521,8 +531,6 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 time.sleep(1)
             else:
                 revisión += 1
-
-
 
         revisión = 0
 
@@ -534,7 +542,8 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 print("Cayó en una serpiente")
                 print("Va a bajar a la cola")
                 time.sleep(1)
-                tablero_3 = avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
+                tablero_3 = avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final=[
+                ], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
                 imprimir_tablero(invertir_tablero(tablero_3))
                 print("")
                 print("")
@@ -543,17 +552,15 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
             else:
                 revisión += 1
 
-
         if posición_jugador >= tamaño:
             posición_jugador = tamaño
             tablero_2 = avanzar_tablero(
-            tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
+                tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
             imprimir_tablero(invertir_tablero(tablero_2))
             return ganar_anarquistas()
 
-
         tablero_2 = avanzar_tablero(
-            tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
+            tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
         imprimir_tablero(invertir_tablero(tablero_2))
 
         turno = 2
@@ -599,7 +606,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 print("Va a subir a la parte de arriba")
                 time.sleep(1)
                 tablero_3 = avanzar_tablero(
-                tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
                 imprimir_tablero(invertir_tablero(tablero_3))
                 print("")
                 print("")
@@ -607,10 +614,6 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 time.sleep(1)
             else:
                 revisión += 1
-
-
-
-
 
         revisión = 0
 
@@ -623,7 +626,7 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
                 print("Va a bajar a la cola")
                 time.sleep(1)
                 tablero_3 = avanzar_tablero(
-                tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
                 imprimir_tablero(invertir_tablero(tablero_3))
                 print("")
                 print("")
@@ -635,15 +638,192 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
         if posición_enemigo >= tamaño:
             posición_enemigo = tamaño
             tablero_3 = avanzar_tablero(
-            tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
+                tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
             imprimir_tablero(invertir_tablero(tablero_3))
             return ganar_fascistas()
 
         tablero_3 = avanzar_tablero(
-            tablero, posición_jugador, posición_enemigo, tablero_final=[],tablero_vacío=tablero_vacío)
+            tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
         imprimir_tablero(invertir_tablero(tablero_3))
 
-        return iniciar(1, tablero_3, posición_jugador, posición_enemigo, tablero, escaleras_inicio_finales, escaleras_final,serpientes_inicio,serpientes_final,tamaño,tablero_vacío)
+        turno = 3
+
+    while turno == 3:
+        input("Presione enter para lanzar los dados del jugador 2")
+        posiciones = random.randint(1, 4)
+        proyectos = random.randint(1, 4)
+        eficacia = random.randint(1, 4)
+
+        # Calcula lo que va a avanzar
+
+        print("Va a avanzar "+str(posiciones) + " casillas")
+
+        if proyectos == 1:
+            print("Está intentando ejecutar "+str(proyectos)+" proyecto")
+        else:
+            print("Está intentando ejecutar "+str(proyectos)+" proyectos")
+
+        # Comprueba si los proyectos fracasan o no
+        if eficacia % 2 == 0:
+            print("Los proyectos fueron exitosos, se va a mover " +
+                  str(proyectos)+" casillas extra y los fascistas van a retroceder")
+            posición_jugador_2 += posiciones+proyectos
+            posición_enemigo_2 -= proyectos
+
+        else:
+            print("Los proyectos fracasaron, no hay bonificaciones")
+            posición_jugador_2 += posiciones
+
+        # Para que la posición no se vaya a números negativos
+        if posición_jugador_2 < 0:
+            posición_jugador_2 = 0
+        if posición_enemigo_2 < 0:
+            posición_enemigo_2 = 0
+        if posición_jugador_2 == posición_enemigo_2:
+            print("Qué mala suerte, cayó en una casilla fascista.")
+            print("Retrocede un espacio.")
+            posición_jugador_2 -= 1
+
+        # comprueba si cayó en una casilla de escaleras o no y lo avanza si sí
+
+        revisión = 0
+
+        while revisión < len(escaleras_inicio_finales)-1:
+
+            if posición_jugador_2 == escaleras_inicio_finales[revisión]:
+                print("")
+                print("")
+                print("Cayó en una escalera")
+                print("Va a subir a la parte de arriba")
+                time.sleep(1)
+                tablero_3 = avanzar_tablero(
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
+                imprimir_tablero(invertir_tablero(tablero_3))
+                print("")
+                print("")
+                posición_jugador_2 = escaleras_final[revisión]
+                time.sleep(1)
+            else:
+                revisión += 1
+
+        revisión = 0
+
+        while revisión < len(serpientes_final)-1:
+
+            if posición_jugador_2 == serpientes_final[revisión]:
+                print("")
+                print("")
+                print("Cayó en una serpiente")
+                print("Va a bajar a la cola")
+                time.sleep(1)
+                tablero_3 = avanzar_tablero(tablero, posición_jugador, posición_enemigo, tablero_final=[
+                ], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
+                imprimir_tablero(invertir_tablero(tablero_3))
+                print("")
+                print("")
+                posición_jugador_2 = serpientes_inicio[revisión]
+                time.sleep(1)
+            else:
+                revisión += 1
+
+        if posición_jugador_2 >= tamaño:
+            posición_jugador_2 = tamaño
+            tablero_2 = avanzar_tablero(
+                tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
+            imprimir_tablero(invertir_tablero(tablero_2))
+            return ganar_anarquistas()
+
+        tablero_2 = avanzar_tablero(
+            tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
+        imprimir_tablero(invertir_tablero(tablero_2))
+
+        turno = 4
+
+    while turno == 4:
+        input("Presione enter para el turno de los fascistas 2")
+        posiciones_f = random.randint(1, 4)
+        proyectos_f = random.randint(1, 4)
+        eficacia_f = random.randint(1, 4)
+
+        print("Va a avanzar "+str(posiciones_f) + " casillas")
+
+        if proyectos_f == 1:
+            print("Está intentando ejecutar "+str(proyectos_f)+" proyecto")
+        else:
+            print("Está intentando ejecutar "+str(proyectos_f)+" proyectos")
+
+        if eficacia_f % 2 == 0:
+            print("Los proyectos fueron exitosos, se va a mover " +
+                  str(proyectos_f)+" casillas extra y los anarquistas van a retroceder")
+            posición_enemigo_2 += posiciones_f+proyectos_f
+            posición_jugador_2 -= proyectos_f
+        else:
+            print("Los proyectos fracasaron, no hay bonificaciones")
+            posición_enemigo += posiciones_f
+
+        if posición_jugador_2 < 0:
+            posición_jugador_2 = 0
+        if posición_enemigo_2 < 0:
+            posición_enemigo_2 = 0
+        if posición_jugador_2 == posición_enemigo_2:
+            print("Buena suerte, los fascistas cayeron en una casilla anarquista.")
+            print("Retroceden un espacio.")
+            posición_enemigo -= 1
+
+        revisión = 0
+        while revisión < len(escaleras_inicio_finales)-1:
+
+            if posición_enemigo_2 == escaleras_inicio_finales[revisión]:
+                print("")
+                print("")
+                print("Cayó en una escalera")
+                print("Va a subir a la parte de arriba")
+                time.sleep(1)
+                tablero_3 = avanzar_tablero(
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
+                imprimir_tablero(invertir_tablero(tablero_3))
+                print("")
+                print("")
+                posición_enemigo_2 = escaleras_final[revisión]
+                time.sleep(1)
+            else:
+                revisión += 1
+
+        revisión = 0
+
+        while revisión < len(serpientes_final)-1:
+
+            if posición_enemigo_2 == serpientes_final[revisión]:
+                print("")
+                print("")
+                print("Cayó en una serpiente")
+                print("Va a bajar a la cola")
+                time.sleep(1)
+                tablero_3 = avanzar_tablero(
+                    tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
+                imprimir_tablero(invertir_tablero(tablero_3))
+                print("")
+                print("")
+                posición_enemigo_2 = serpientes_inicio[revisión]-1
+                time.sleep(1)
+            else:
+                revisión += 1
+
+        if posición_enemigo_2 >= tamaño:
+            posición_enemigo_2 = tamaño
+            tablero_3 = avanzar_tablero(
+                tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
+            imprimir_tablero(invertir_tablero(tablero_3))
+            return ganar_fascistas()
+
+        tablero_3 = avanzar_tablero(
+            tablero, posición_jugador, posición_enemigo, tablero_final=[], tablero_vacío=tablero_vacío, posición_jugador_2=posición_jugador_2, posición_enemigo_2=posición_enemigo_2)
+        imprimir_tablero(invertir_tablero(tablero_3))
+
+        turno = 1
+        turno_final += 1
+
+        return iniciar(turno, tablero_3, posición_jugador, posición_enemigo, tablero, escaleras_inicio_finales, escaleras_final, serpientes_inicio, serpientes_final, tamaño, tablero_vacío, posición_jugador_2, posición_enemigo_2)
 
 
 iniciar(0)
