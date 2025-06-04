@@ -417,9 +417,8 @@ def iniciar(turno, tablero_nuevo=[], posición_jugador=0, posición_enemigo=0, t
 
         if tablero == tablero_nuevo:
             largo = input(
-                "¿Cuál será el largo del tablero? (Número entre 10 y 15):\n")
-            alto = input(
-                "¿Cuál será el alto del tablero? (Número entre 10 y 15):\n")
+                "¿Cuáles serán las dimensiones del tablero? (Número entre 10 y 15):\n")
+            alto = largo
 
             if verificar_numéricos(largo) and verificar_numéricos(alto):
                 largo = int(largo)
