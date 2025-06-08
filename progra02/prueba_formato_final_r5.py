@@ -68,7 +68,7 @@ def imprimir_tablero(matriz):
                 print("⬜", end="  ")
 
             j += 1
-            
+
         j = 0
         i += 1
         print()
@@ -334,6 +334,7 @@ def verificar_eventos_inicio(eventos_inicio, eventos_final, serpientes_inicio, s
 
     return eventos_inicio
 
+
 def eventos_anarquistas():
     """
     escoge un evento anarquista para las escaleras y los eventos
@@ -341,8 +342,9 @@ def eventos_anarquistas():
     S: un evento anarquista en forma de string
     R: no hay
     """
-    eventos = ["Los anarquistas crearon refugios para ayudar a personas afectadas por desastres","Los anarquistas usaron puestos de energía solar para tener electricidad durante apagones","Los anarquistas ofrecieron libre acceso a sistemas de información, logrando el apoyo de la población","Los anarquistas crearon huertos comunitarios para compartir con la comunidad","Los anarquistas crearon proyectos de vivienda solidaria","Los anarquistas crearon cooperativas para apoyar a personas de escasos recursos"]
-    número = random.randint(0,len(eventos)-1)
+    eventos = ["Los anarquistas crearon refugios para ayudar a personas afectadas por desastres", "Los anarquistas usaron puestos de energía solar para tener electricidad durante apagones", "Los anarquistas ofrecieron libre acceso a sistemas de información, logrando el apoyo de la población",
+               "Los anarquistas crearon huertos comunitarios para compartir con la comunidad", "Los anarquistas crearon proyectos de vivienda solidaria", "Los anarquistas crearon cooperativas para apoyar a personas de escasos recursos"]
+    número = random.randint(0, len(eventos)-1)
     return eventos[número]
 
 
@@ -353,9 +355,11 @@ def eventos_fascistas():
     S: un evento anarquista en forma de string
     R: no hay
     """
-    eventos = ["Los fascistas tomaron edificios públicos","Los fascistas donaron comida, evitando ayudar a inmigrantes","Los fascistas han continuado con las ideologías de Mussolini","Los fascistas promovieron el uso de inteligencia artificial en la creación de propaganda"]
-    número = random.randint(0,len(eventos)-1)
+    eventos = ["Los fascistas tomaron edificios públicos", "Los fascistas donaron comida, evitando ayudar a inmigrantes",
+               "Los fascistas han continuado con las ideologías de Mussolini", "Los fascistas promovieron el uso de inteligencia artificial en la creación de propaganda"]
+    número = random.randint(0, len(eventos)-1)
     return eventos[número]
+
 
 def menú():
     """
